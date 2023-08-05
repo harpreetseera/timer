@@ -1,6 +1,6 @@
 # ipotato_timer
 
-A new Flutter project.
+Training cum test assignment for Senior flutter Engineer at Go High Level.
 
 ## Getting Started
 
