@@ -5,8 +5,9 @@ class TimerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO(harpreetseera): add logic here
     return Card(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(top: 16),
       child: Padding(
         padding: const EdgeInsets.all(32.0),
         child: Column(
@@ -22,7 +23,7 @@ class TimerCard extends StatelessWidget {
                       .headlineLarge!
                       .copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 SizedBox(
@@ -31,8 +32,8 @@ class TimerCard extends StatelessWidget {
                   child: FittedBox(
                     child: IconButton.filled(
                       onPressed: () {},
-                      iconSize: 28,
-                      icon: Icon(Icons.play_arrow),
+                      iconSize: 32,
+                      icon: const Icon(Icons.play_arrow),
                       style: IconButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -42,7 +43,7 @@ class TimerCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 SizedBox(
@@ -51,8 +52,8 @@ class TimerCard extends StatelessWidget {
                   child: FittedBox(
                     child: IconButton.filled(
                       onPressed: () {},
-                      iconSize: 28,
-                      icon: Icon(Icons.pause),
+                      iconSize: 32,
+                      icon: const Icon(Icons.stop),
                       style: IconButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),

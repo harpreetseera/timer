@@ -1,39 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:ipotato_timer/ui/widgets/timer_card.dart';
+import 'package:ipotato_timer/ui/widgets/add_timer_button.dart';
+import 'package:ipotato_timer/ui/widgets/potato_timer_app_bar.dart';
+import 'package:ipotato_timer/ui/widgets/timer_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Potato Timer",
-          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-        child: ListView(
-          children: const [
-            TimerCard(),
-            TimerCard(),
-            TimerCard(),
-            TimerCard(),
-            TimerCard(),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        shape: const CircleBorder(),
-        child: const Icon(
-          Icons.add_circle_outline_rounded,
-          size: 34,
-        ),
-      ),
+    return const Scaffold(
+      appBar: PotatoTimerAppBar(),
+      body: TimerList(),
+      floatingActionButton: AddTimerButton(),
     );
   }
 }
