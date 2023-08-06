@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/ui/widgets/duration_selector.dart';
 
-class AddTaskOverlay extends StatelessWidget {
+class AddTaskOverlay extends StatefulWidget {
   const AddTaskOverlay({super.key});
+
+  @override
+  State<AddTaskOverlay> createState() => _AddTaskOverlayState();
+}
+
+class _AddTaskOverlayState extends State<AddTaskOverlay> {
+  late TextEditingController titleController, descriptionController;
+  @override
+  void initState() {
+    titleController = TextEditingController();
+    descriptionController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +30,13 @@ class AddTaskOverlay extends StatelessWidget {
         MaterialButton(
           minWidth: double.maxFinite,
           color: Theme.of(context).colorScheme.tertiaryContainer,
-          onPressed: () {},
+          onPressed: () {
+            final taskData = TaskData(
+              description: descriptionController.text.trim(),
+              duration: resolveDuration("20", "35", "47"),
+              title: titleController.text.trim(),
+            );
+          },
           child: const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text("Add Task"),
@@ -33,6 +53,7 @@ class AddTaskOverlay extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
+                    controller: titleController,
                     decoration: InputDecoration(
                       labelText: "Title",
                       hintText: "Superdesigner",
@@ -52,6 +73,7 @@ class AddTaskOverlay extends StatelessWidget {
                     height: 24,
                   ),
                   TextFormField(
+                    controller: descriptionController,
                     maxLines: 6,
                     decoration: InputDecoration(
                       labelText: "Description",
@@ -95,5 +117,9 @@ class AddTaskOverlay extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Duration resolveDuration(String s, String t, String u) {
+    return Duration(hours: 0, minutes: 1, seconds: 10);
   }
 }

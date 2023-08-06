@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/app_config.dart';
-
 import 'ui/screens/home_screen.dart';
 
 void main() {
