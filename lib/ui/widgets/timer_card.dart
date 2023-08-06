@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ipotato_timer/ui/widgets/timer_action_button.dart';
 
 class TimerCard extends StatelessWidget {
   const TimerCard({super.key});
+
+  get genericHorizontalSpace => const SizedBox(
+        width: 8,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -23,46 +28,10 @@ class TimerCard extends StatelessWidget {
                       .headlineLarge!
                       .copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
-                SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: FittedBox(
-                    child: IconButton.filled(
-                      onPressed: () {},
-                      iconSize: 32,
-                      icon: const Icon(Icons.play_arrow),
-                      style: IconButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.tertiary),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: FittedBox(
-                    child: IconButton.filled(
-                      onPressed: () {},
-                      iconSize: 32,
-                      icon: const Icon(Icons.stop),
-                      style: IconButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.tertiary),
-                    ),
-                  ),
-                ),
+                genericHorizontalSpace,
+                TimerActionButton(iconData: Icons.play_arrow, action: () {}),
+                genericHorizontalSpace,
+                TimerActionButton(iconData: Icons.pause, action: () {}),
               ],
             ),
             Text(

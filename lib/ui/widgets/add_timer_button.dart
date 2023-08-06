@@ -26,7 +26,7 @@ class AddTimerButton extends StatelessWidget {
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AddTaskOverlay();
+        return const AddTaskOverlay();
       },
     );
   }
