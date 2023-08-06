@@ -21,6 +21,10 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
+    final hourDuration = TaskDuration(00);
+    final minuteDuration = TaskDuration(00);
+    final secondDuration = TaskDuration(00);
+
     return AlertDialog(
       title: const Text('Add Task'),
       buttonPadding: EdgeInsets.zero,
@@ -33,9 +37,11 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
           onPressed: () {
             final taskData = TaskData(
               description: descriptionController.text.trim(),
-              duration: resolveDuration("20", "35", "47"),
+              duration: resolveDuration(hourDuration.duration,
+                  minuteDuration.duration, secondDuration.duration),
               title: titleController.text.trim(),
             );
+            
           },
           child: const Padding(
             padding: EdgeInsets.all(16.0),
@@ -97,14 +103,23 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                     "Duration",
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
-                  const Row(
+                  Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      DurationSelector(durationType: DurationType.hour),
+                      DurationSelector(
+                        durationType: DurationType.hour,
+                        taskDuration: hourDuration,
+                      ),
                       Text(":"),
-                      DurationSelector(durationType: DurationType.minutes),
+                      DurationSelector(
+                        durationType: DurationType.minutes,
+                        taskDuration: minuteDuration,
+                      ),
                       Text(":"),
-                      DurationSelector(durationType: DurationType.seconds),
+                      DurationSelector(
+                        durationType: DurationType.seconds,
+                        taskDuration: secondDuration,
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -119,7 +134,7 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
     );
   }
 
-  Duration resolveDuration(String s, String t, String u) {
+  Duration resolveDuration(int hour, int minute, int sec) {
     return Duration(hours: 0, minutes: 1, seconds: 10);
   }
 }

@@ -1,13 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+part 'duration_selector.g.dart';
+
+class TaskDuration = TaskDurationBase with _$TaskDuration;
+
+abstract class TaskDurationBase with Store {
+  TaskDurationBase(this.duration);
+  @observable
+  int duration = 00;
+}
 
 enum DurationType { hour, minutes, seconds }
 
 class DurationSelector extends StatelessWidget {
   final DurationType durationType;
+  final TaskDuration taskDuration;
   const DurationSelector({
     super.key,
     required this.durationType,
+    required this.taskDuration,
   });
 
   String get resolveDurationSymbol {
@@ -27,10 +40,14 @@ class DurationSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InkWell(
-            child: const Card(
+            child: Card(
               child: Padding(
                 padding: EdgeInsets.all(12.0),
-                child: Text("00"),
+                child: Observer(
+                    builder: (_) => Text(
+                          '${taskDuration.duration}',
+                          style: const TextStyle(fontSize: 20),
+                        )),
               ),
             ),
             onTap: () {
@@ -44,9 +61,7 @@ class DurationSelector extends StatelessWidget {
                     initialItem: 0,
                   ),
                   onSelectedItemChanged: (int selectedItem) {
-                    // setState(() {
-                    //   _selectedFruit = selectedItem;
-                    // });
+                    taskDuration.duration = selectedItem;
                   },
                   children: List<Widget>.generate(
                       List.generate(60, (index) => index).length, (int index) {

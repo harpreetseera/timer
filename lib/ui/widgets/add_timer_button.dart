@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ipotato_timer/app_config.dart';
-import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'package:ipotato_timer/size_config.dart';
 import 'package:ipotato_timer/ui/widgets/add_task_overlay.dart';
 
