@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/ui/widgets/timer_action_button.dart';
+import 'package:ipotato_timer/extension/int_extension.dart';
 
 class TimerCard extends StatelessWidget {
-  const TimerCard({super.key});
+  final TaskData taskData;
+  const TimerCard({super.key, required this.taskData});
 
   get genericHorizontalSpace => const SizedBox(
         width: 8,
       );
+
+  String get resolveTimer {
+    final durationInSeconds = taskData.duration.inSeconds;
+    final hoursOfDuration =
+        taskData.duration.inHours.prefixZeroForSingleDigit();
+    final minutesofDuration =
+        ((durationInSeconds % 3600) / 60).floor().prefixZeroForSingleDigit();
+    final secondsofDuration =
+        ((durationInSeconds % 3600) % 60).floor().prefixZeroForSingleDigit();
+    return '$hoursOfDuration:$minutesofDuration:$secondsofDuration';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +36,7 @@ class TimerCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  "00:02:12",
+                  resolveTimer,
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge!
@@ -31,18 +45,18 @@ class TimerCard extends StatelessWidget {
                 genericHorizontalSpace,
                 TimerActionButton(iconData: Icons.play_arrow, action: () {}),
                 genericHorizontalSpace,
-                TimerActionButton(iconData: Icons.pause, action: () {}),
+                TimerActionButton(iconData: Icons.stop_rounded, action: () {}),
               ],
             ),
             Text(
-              "Task1",
+              taskData.title,
               style: Theme.of(context)
                   .textTheme
                   .titleLarge!
                   .copyWith(color: Theme.of(context).colorScheme.secondary),
             ),
             Text(
-              "This is what needs to be done and how it can be done in time",
+              taskData.description,
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
