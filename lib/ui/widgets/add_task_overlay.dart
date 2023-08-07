@@ -36,28 +36,28 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
           builder: (context) => MaterialButton(
             minWidth: double.maxFinite,
             color: Theme.of(context).colorScheme.tertiaryContainer,
-            onPressed: taskDuration.isValidDuration &&
-                    titleController.text.isNotEmpty &&
-                    descriptionController.text.isNotEmpty
+            onPressed: taskDuration.isValidDuration
                 ? () async {
-                    final taskData = TaskData(
-                      description: descriptionController.text.trim(),
-                      duration: taskDuration.duration,
-                      title: titleController.text.trim(),
-                    );
+                    if (formKey.currentState!.validate()) {
+                      final taskData = TaskData(
+                        description: descriptionController.text.trim(),
+                        duration: taskDuration.duration,
+                        title: titleController.text.trim(),
+                      );
 
-                    final db = context.read<TaskDatabase>();
-                    await db.into(db.taskTable).insert(
-                          TaskTableCompanion.insert(
-                            title: taskData.title,
-                            description: taskData.description,
-                            duration: taskData.duration.inMilliseconds,
-                            active: true,
-                          ),
-                        );
-                    // final alltasks = await db.select(db.taskTable).get();
-                    // print(alltasks);
-                    // },
+                      final db = context.read<TaskDatabase>();
+                      await db
+                          .into(db.taskTable)
+                          .insert(
+                            TaskTableCompanion.insert(
+                              title: taskData.title,
+                              description: taskData.description,
+                              duration: taskData.duration.inSeconds,
+                              active: true,
+                            ),
+                          )
+                          .then((value) => Navigator.of(context).pop());
+                    }
                   }
                 : null,
             child: const Padding(
@@ -92,13 +92,23 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                         ),
                       ),
                     ),
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "required";
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 24,
                   ),
                   TextFormField(
                     controller: descriptionController,
-                    maxLines: 6,
+                    maxLines: 3,
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "required";
+                      }
+                    },
                     decoration: InputDecoration(
                       labelText: "Description",
                       hintText: "e.g. john@gmail.com",
@@ -140,9 +150,7 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 60,
-                  ),
+                 
                 ],
               ),
             )
