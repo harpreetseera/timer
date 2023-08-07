@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/app_config.dart';
+import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'ui/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(Provider<TaskDatabase>(
+    create: (_) => TaskDatabase(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

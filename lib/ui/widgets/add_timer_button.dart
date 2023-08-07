@@ -10,23 +10,7 @@ class AddTimerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed:
-          /// DB setup testing
-          
-          // () async {
-          //   final db = TaskDatabase();
-          //   await db.into(db.taskTable).insert(
-          //         TaskTableCompanion.insert(
-          //           title: "Demo",
-          //           description: "Demo description",
-          //           duration: 1111111,
-          //           active: true,
-          //         ),
-          //       );
-          //   final alltasks = await db.select(db.taskTable).get();
-          //   print(alltasks);
-          // },
-          () {
+      onPressed: () {
         showAddTaskOverlay(context);
       },
       shape: const CircleBorder(),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
+import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'package:ipotato_timer/ui/widgets/duration_selector.dart';
+import 'package:provider/provider.dart';
 
 class AddTaskOverlay extends StatefulWidget {
   const AddTaskOverlay({super.key});
@@ -37,12 +39,25 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
             onPressed: taskDuration.isValidDuration &&
                     titleController.text.isNotEmpty &&
                     descriptionController.text.isNotEmpty
-                ? () {
+                ? () async {
                     final taskData = TaskData(
                       description: descriptionController.text.trim(),
                       duration: taskDuration.duration,
                       title: titleController.text.trim(),
                     );
+
+                    final db = context.read<TaskDatabase>();
+                    await db.into(db.taskTable).insert(
+                          TaskTableCompanion.insert(
+                            title: taskData.title,
+                            description: taskData.description,
+                            duration: taskData.duration.inMilliseconds,
+                            active: true,
+                          ),
+                        );
+                    // final alltasks = await db.select(db.taskTable).get();
+                    // print(alltasks);
+                    // },
                   }
                 : null,
             child: const Padding(
