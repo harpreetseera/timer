@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:ipotato_timer/extension/int_extension.dart';
 part 'duration_selector.g.dart';
 
 class TaskDuration = TaskDurationBase with _$TaskDuration;
@@ -34,6 +35,17 @@ class DurationSelector extends StatelessWidget {
     }
   }
 
+  int get resolveDurationLimit {
+    switch (durationType) {
+      case DurationType.hour:
+        return 100;
+      case DurationType.minutes:
+        return 60;
+      case DurationType.seconds:
+        return 60;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,29 +56,42 @@ class DurationSelector extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Observer(
-                    builder: (_) => Text(
-                          '${taskDuration.duration}',
-                          style: const TextStyle(fontSize: 20),
-                        )),
+                  builder: (_) => Text(
+                    taskDuration.duration.prefixZeroForSingleDigit(),
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                ),
               ),
             ),
             onTap: () {
               _showDialog(
-                CupertinoPicker(
-                  magnification: 1.22,
-                  squeeze: 1.2,
-                  useMagnifier: true,
-                  itemExtent: 32,
-                  scrollController: FixedExtentScrollController(
-                    initialItem: 0,
+                Material(
+                  child: Column(
+                    children: [
+                      Text("Select ${durationType.name} duration"),
+                      Expanded(
+                        child: CupertinoPicker(
+                          magnification: 1.22,
+                          squeeze: 1.2,
+                          useMagnifier: true,
+                          itemExtent: 32,
+                          scrollController: FixedExtentScrollController(
+                            initialItem: 0,
+                          ),
+                          onSelectedItemChanged: (int selectedItem) {
+                            taskDuration.duration = selectedItem;
+                          },
+                          children: List<Widget>.generate(
+                              List.generate(
+                                      resolveDurationLimit, (index) => index)
+                                  .length, (int index) {
+                            return Center(
+                                child: Text(index.prefixZeroForSingleDigit()));
+                          }),
+                        ),
+                      ),
+                    ],
                   ),
-                  onSelectedItemChanged: (int selectedItem) {
-                    taskDuration.duration = selectedItem;
-                  },
-                  children: List<Widget>.generate(
-                      List.generate(60, (index) => index).length, (int index) {
-                    return Center(child: Text(index.toString()));
-                  }),
                 ),
                 context,
               );

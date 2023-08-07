@@ -41,7 +41,6 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                   minuteDuration.duration, secondDuration.duration),
               title: titleController.text.trim(),
             );
-            
           },
           child: const Padding(
             padding: EdgeInsets.all(16.0),
@@ -134,7 +133,11 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
     );
   }
 
-  Duration resolveDuration(int hour, int minute, int sec) {
-    return Duration(hours: 0, minutes: 1, seconds: 10);
+  Duration resolveDuration(int hours, int minutes, int seconds) {
+    return Duration(
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+    );
   }
 }
