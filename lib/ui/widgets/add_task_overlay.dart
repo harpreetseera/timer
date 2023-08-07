@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/ui/widgets/duration_selector.dart';
 
@@ -21,9 +22,7 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    final hourDuration = TaskDuration(00);
-    final minuteDuration = TaskDuration(00);
-    final secondDuration = TaskDuration(00);
+    final taskDuration = TaskDuration(00, 00, 00);
 
     return AlertDialog(
       title: const Text('Add Task'),
@@ -31,20 +30,25 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
       actionsPadding: const EdgeInsets.all(0),
       clipBehavior: Clip.hardEdge,
       actions: [
-        MaterialButton(
-          minWidth: double.maxFinite,
-          color: Theme.of(context).colorScheme.tertiaryContainer,
-          onPressed: () {
-            final taskData = TaskData(
-              description: descriptionController.text.trim(),
-              duration: resolveDuration(hourDuration.duration,
-                  minuteDuration.duration, secondDuration.duration),
-              title: titleController.text.trim(),
-            );
-          },
-          child: const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text("Add Task"),
+        Observer(
+          builder: (context) => MaterialButton(
+            minWidth: double.maxFinite,
+            color: Theme.of(context).colorScheme.tertiaryContainer,
+            onPressed: taskDuration.isValidDuration &&
+                    titleController.text.isNotEmpty &&
+                    descriptionController.text.isNotEmpty
+                ? () {
+                    final taskData = TaskData(
+                      description: descriptionController.text.trim(),
+                      duration: taskDuration.duration,
+                      title: titleController.text.trim(),
+                    );
+                  }
+                : null,
+            child: const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text("Add Task"),
+            ),
           ),
         )
       ],
@@ -107,17 +111,17 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                     children: [
                       DurationSelector(
                         durationType: DurationType.hour,
-                        taskDuration: hourDuration,
+                        taskDuration: taskDuration,
                       ),
                       Text(":"),
                       DurationSelector(
                         durationType: DurationType.minutes,
-                        taskDuration: minuteDuration,
+                        taskDuration: taskDuration,
                       ),
                       Text(":"),
                       DurationSelector(
                         durationType: DurationType.seconds,
-                        taskDuration: secondDuration,
+                        taskDuration: taskDuration,
                       ),
                     ],
                   ),

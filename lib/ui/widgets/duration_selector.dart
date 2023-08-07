@@ -8,9 +8,30 @@ part 'duration_selector.g.dart';
 class TaskDuration = TaskDurationBase with _$TaskDuration;
 
 abstract class TaskDurationBase with Store {
-  TaskDurationBase(this.duration);
+  TaskDurationBase(
+    this.hours,
+    this.minutes,
+    this.seconds,
+  );
   @observable
-  int duration = 00;
+  int hours = 00;
+
+  @observable
+  int minutes = 00;
+  @observable
+  int seconds = 00;
+
+  @computed
+  Duration get duration => Duration(
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+      );
+
+  @computed
+  bool get isValidDuration {
+    return (hours > 0 || minutes > 0 || seconds > 0);
+  }
 }
 
 enum DurationType { hour, minutes, seconds }
@@ -46,6 +67,17 @@ class DurationSelector extends StatelessWidget {
     }
   }
 
+  int get timeType {
+    switch (durationType) {
+      case DurationType.hour:
+        return taskDuration.hours;
+      case DurationType.minutes:
+        return taskDuration.minutes;
+      case DurationType.seconds:
+        return taskDuration.seconds;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,10 +88,12 @@ class DurationSelector extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Observer(
-                  builder: (_) => Text(
-                    taskDuration.duration.prefixZeroForSingleDigit(),
-                    style: const TextStyle(fontSize: 20),
-                  ),
+                  builder: (_) {
+                    return Text(
+                      timeType.prefixZeroForSingleDigit(),
+                      style: const TextStyle(fontSize: 20),
+                    );
+                  },
                 ),
               ),
             ),
@@ -79,15 +113,17 @@ class DurationSelector extends StatelessWidget {
                             initialItem: 0,
                           ),
                           onSelectedItemChanged: (int selectedItem) {
-                            taskDuration.duration = selectedItem;
+                            updateTime(selectedItem);
                           },
                           children: List<Widget>.generate(
-                              List.generate(
-                                      resolveDurationLimit, (index) => index)
-                                  .length, (int index) {
-                            return Center(
-                                child: Text(index.prefixZeroForSingleDigit()));
-                          }),
+                            List.generate(
+                                resolveDurationLimit, (index) => index).length,
+                            (int index) {
+                              return Center(
+                                child: Text(index.prefixZeroForSingleDigit()),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -123,5 +159,16 @@ class DurationSelector extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void updateTime(int selectedItem) {
+    switch (durationType) {
+      case DurationType.hour:
+        taskDuration.hours = selectedItem;
+      case DurationType.minutes:
+        taskDuration.minutes = selectedItem;
+      case DurationType.seconds:
+        taskDuration.seconds = selectedItem;
+    }
   }
 }
