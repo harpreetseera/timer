@@ -25,6 +25,15 @@ mixin _$TaskList on TaskListBase, Store {
     });
   }
 
+  late final _$fetchListFromDBAsyncAction =
+      AsyncAction('TaskListBase.fetchListFromDB', context: context);
+
+  @override
+  Future<void> fetchListFromDB(BuildContext context) {
+    return _$fetchListFromDBAsyncAction
+        .run(() => super.fetchListFromDB(context));
+  }
+
   @override
   String toString() {
     return '''

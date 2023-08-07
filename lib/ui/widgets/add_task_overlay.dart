@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
+import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'package:ipotato_timer/ui/widgets/duration_selector.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +57,10 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                               active: true,
                             ),
                           )
-                          .then((value) => Navigator.of(context).pop());
+                          .then((value) {
+                        context.read<TaskList>().fetchListFromDB(context);
+                        Navigator.of(context).pop();
+                      });
                     }
                   }
                 : null,
@@ -95,6 +99,8 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                     validator: (val) {
                       if (val == null || val.isEmpty) {
                         return "required";
+                      } else {
+                        return null;
                       }
                     },
                   ),
@@ -107,6 +113,8 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                     validator: (val) {
                       if (val == null || val.isEmpty) {
                         return "required";
+                      } else {
+                        return null;
                       }
                     },
                     decoration: InputDecoration(
@@ -150,7 +158,6 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                       ),
                     ],
                   ),
-                 
                 ],
               ),
             )

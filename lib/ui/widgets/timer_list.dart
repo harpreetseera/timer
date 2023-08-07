@@ -17,8 +17,9 @@ class _TimerListState extends State<TimerList> {
   late TaskList taskList;
   @override
   void initState() {
-    taskList = TaskList([]);
-    fetchTimerListFromDB();
+    taskList = context.read<TaskList>();
+    // TaskList([]);
+    taskList.fetchListFromDB(context);
     super.initState();
   }
 
@@ -38,15 +39,15 @@ class _TimerListState extends State<TimerList> {
     );
   }
 
-  Future<void> fetchTimerListFromDB() async {
-    final db = context.read<TaskDatabase>();
-    final alltasks = await db.select(db.taskTable).get();
-    taskList.taskDataList = alltasks
-        .map((e) => TaskData(
-              title: e.title,
-              description: e.description,
-              duration: Duration(seconds: e.duration),
-            ))
-        .toList();
-  }
+  // Future<void> fetchTimerListFromDB() async {
+  //   final db = context.read<TaskDatabase>();
+  //   final alltasks = await db.select(db.taskTable).get();
+  //   taskList.taskDataList = alltasks
+  //       .map((e) => TaskData(
+  //             title: e.title,
+  //             description: e.description,
+  //             duration: Duration(seconds: e.duration),
+  //           ))
+  //       .toList();
+  // }
 }
