@@ -50,22 +50,8 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                       taskData.decrement();
                       context.read<TaskList>().taskDataList =
                           context.read<TaskList>().taskDataList + [taskData];
+                      taskData.addTaskInDB(context);
                       Navigator.of(context).pop();
-                      // final db = context.read<TaskDatabase>();
-                      // await db
-                      //     .into(db.taskTable)
-                      //     .insert(
-                      //       TaskTableCompanion.insert(
-                      //         title: taskData.title,
-                      //         description: taskData.description,
-                      //         duration: taskData.duration.inSeconds,
-                      //         active: true,
-                      //       ),
-                      //     )
-                      //     .then((value) {
-                      //   context.read<TaskList>().fetchListFromDB(context);
-                      //   Navigator.of(context).pop();
-                      // });
                     }
                   }
                 : null,

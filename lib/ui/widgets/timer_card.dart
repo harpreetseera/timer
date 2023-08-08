@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
+import 'package:ipotato_timer/modal/task_list.dart';
+import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'package:ipotato_timer/ui/widgets/timer_action_button.dart';
 import 'package:ipotato_timer/extension/int_extension.dart';
+import 'package:provider/provider.dart';
 
 class TimerCard extends StatefulWidget {
   final TaskData taskData;
@@ -107,6 +110,43 @@ class _TimerCardState extends State<TimerCard>
                   .bodyMedium!
                   .copyWith(color: Theme.of(context).colorScheme.primary),
             ),
+            Observer(
+              builder: (context) => Offstage(
+                offstage: widget.taskData.duration.inSeconds > 0,
+                child: MaterialButton(
+                  minWidth: double.maxFinite,
+                  color: Theme.of(context).colorScheme.tertiaryContainer,
+                  onPressed: () async {
+                    // if (formKey.currentState!.validate()) {
+                    //   final taskData = TaskData(
+                    //     description: descriptionController.text.trim(),
+                    //     duration: taskDuration.duration,
+                    //     title: titleController.text.trim(),
+                    //     isActive: true,
+                    //   );
+                    //   // context.read<TaskList>().taskDataList.add(taskData);
+                    //   taskData.decrement();
+                    //   context.read<TaskList>().taskDataList =
+                    //       context.read<TaskList>().taskDataList + [taskData];
+                    //   Navigator.of(context).pop();
+                    final db = context.read<TaskDatabase>();
+                    // TODO: update query based on title to ID
+                    await db.delete(db.taskTable)
+                      ..where((tbl) => tbl.title.equals(widget.taskData.title));
+                    // final afterRemoval =
+                    context.read<TaskList>().taskDataList.removeWhere(
+                        (element) => element.title == widget.taskData.title);
+                    // TODO: find effective way of assigning new values
+                    context.read<TaskList>().taskDataList =
+                        List.from(context.read<TaskList>().taskDataList);
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text("Mark Complete"),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

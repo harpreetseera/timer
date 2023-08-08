@@ -21,6 +21,7 @@ dependencies:
   mobx_codegen: ^2.3.0
   flutter_mobx: ^2.0.6+5
   provider: ^6.0.5
+  assets_audio_player: ^3.0.6
 
 dev_dependencies:
   flutter_test:

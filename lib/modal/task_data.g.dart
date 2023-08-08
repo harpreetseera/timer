@@ -47,6 +47,14 @@ mixin _$TaskData on TaskBase, Store {
     return _$decrementAsyncAction.run(() => super.decrement());
   }
 
+  late final _$addTaskInDBAsyncAction =
+      AsyncAction('TaskBase.addTaskInDB', context: context);
+
+  @override
+  Future<void> addTaskInDB(dynamic context) {
+    return _$addTaskInDBAsyncAction.run(() => super.addTaskInDB(context));
+  }
+
   @override
   String toString() {
     return '''
