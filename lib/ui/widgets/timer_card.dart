@@ -13,7 +13,8 @@ class TimerCard extends StatefulWidget {
   State<TimerCard> createState() => _TimerCardState();
 }
 
-class _TimerCardState extends State<TimerCard> {
+class _TimerCardState extends State<TimerCard>
+    with AutomaticKeepAliveClientMixin {
   get genericHorizontalSpace => const SizedBox(
         width: 8,
       );
@@ -31,12 +32,20 @@ class _TimerCardState extends State<TimerCard> {
 
   @override
   void initState() {
+    print("int called for: ${widget.taskData.title}");
     widget.taskData.decrement();
     super.initState();
   }
 
   @override
+  void didUpdateWidget(covariant TimerCard oldWidget) {
+    widget.taskData.decrement();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     // TODO(harpreetseera): add logic here
     return Card(
       margin: const EdgeInsets.only(top: 16),
@@ -93,4 +102,7 @@ class _TimerCardState extends State<TimerCard> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
