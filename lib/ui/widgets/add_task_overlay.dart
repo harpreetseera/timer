@@ -44,23 +44,28 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                         description: descriptionController.text.trim(),
                         duration: taskDuration.duration,
                         title: titleController.text.trim(),
+                        isActive: true,
                       );
-
-                      final db = context.read<TaskDatabase>();
-                      await db
-                          .into(db.taskTable)
-                          .insert(
-                            TaskTableCompanion.insert(
-                              title: taskData.title,
-                              description: taskData.description,
-                              duration: taskData.duration.inSeconds,
-                              active: true,
-                            ),
-                          )
-                          .then((value) {
-                        context.read<TaskList>().fetchListFromDB(context);
-                        Navigator.of(context).pop();
-                      });
+                      // context.read<TaskList>().taskDataList.add(taskData);
+                      taskData.decrement();
+                      context.read<TaskList>().taskDataList =
+                          context.read<TaskList>().taskDataList + [taskData];
+                      Navigator.of(context).pop();
+                      // final db = context.read<TaskDatabase>();
+                      // await db
+                      //     .into(db.taskTable)
+                      //     .insert(
+                      //       TaskTableCompanion.insert(
+                      //         title: taskData.title,
+                      //         description: taskData.description,
+                      //         duration: taskData.duration.inSeconds,
+                      //         active: true,
+                      //       ),
+                      //     )
+                      //     .then((value) {
+                      //   context.read<TaskList>().fetchListFromDB(context);
+                      //   Navigator.of(context).pop();
+                      // });
                     }
                   }
                 : null,

@@ -22,6 +22,7 @@ abstract class TaskBase with Store {
     required this.title,
     required this.description,
     required this.duration,
+    required this.isActive,
   });
   String title;
   String description;
@@ -29,9 +30,12 @@ abstract class TaskBase with Store {
   @observable
   Duration duration;
 
+  @observable
+  bool isActive;
+
   @action
   Future<void> decrement() async {
-    while (duration.inSeconds > 0) {
+    while (duration.inSeconds > 0 && isActive) {
       await Future.delayed(const Duration(seconds: 1));
       duration = duration - const Duration(seconds: 1);
     }

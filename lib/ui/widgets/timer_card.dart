@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/ui/widgets/timer_action_button.dart';
 import 'package:ipotato_timer/extension/int_extension.dart';
-import 'package:mobx/mobx.dart';
 
 class TimerCard extends StatefulWidget {
   final TaskData taskData;
@@ -32,14 +31,15 @@ class _TimerCardState extends State<TimerCard>
 
   @override
   void initState() {
-    print("int called for: ${widget.taskData.title}");
-    widget.taskData.decrement();
+    // print("int called for: ${widget.taskData.title}");
+
+    // widget.taskData.decrement();
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant TimerCard oldWidget) {
-    widget.taskData.decrement();
+    // widget.taskData.decrement();
     super.didUpdateWidget(oldWidget);
   }
 
@@ -69,7 +69,17 @@ class _TimerCardState extends State<TimerCard>
                         ),
                         genericHorizontalSpace,
                         TimerActionButton(
-                            iconData: Icons.play_arrow, action: () {}),
+                          iconData: widget.taskData.isActive
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                          action: () {
+                            widget.taskData.isActive =
+                                !widget.taskData.isActive;
+                            if (widget.taskData.isActive) {
+                              widget.taskData.decrement();
+                            }
+                          },
+                        ),
                         genericHorizontalSpace,
                         TimerActionButton(
                             iconData: Icons.stop_rounded, action: () {}),

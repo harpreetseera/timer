@@ -19,11 +19,14 @@ abstract class TaskListBase with Store {
     final db = context.read<TaskDatabase>();
     final alltasks = await db.select(db.taskTable).get();
     taskDataList = alltasks
-        .map((e) => TaskData(
-              title: e.title,
-              description: e.description,
-              duration: Duration(seconds: e.duration),
-            ))
+        .map(
+          (e) => TaskData(
+            title: e.title,
+            description: e.description,
+            duration: Duration(seconds: e.duration),
+            isActive: e.active,
+          ),
+        )
         .toList();
   }
 }

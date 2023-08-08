@@ -24,6 +24,21 @@ mixin _$TaskData on TaskBase, Store {
     });
   }
 
+  late final _$isActiveAtom = Atom(name: 'TaskBase.isActive', context: context);
+
+  @override
+  bool get isActive {
+    _$isActiveAtom.reportRead();
+    return super.isActive;
+  }
+
+  @override
+  set isActive(bool value) {
+    _$isActiveAtom.reportWrite(value, super.isActive, () {
+      super.isActive = value;
+    });
+  }
+
   late final _$decrementAsyncAction =
       AsyncAction('TaskBase.decrement', context: context);
 
@@ -35,7 +50,8 @@ mixin _$TaskData on TaskBase, Store {
   @override
   String toString() {
     return '''
-duration: ${duration}
+duration: ${duration},
+isActive: ${isActive}
     ''';
   }
 }
