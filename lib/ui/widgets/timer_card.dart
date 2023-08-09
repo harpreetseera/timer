@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
@@ -5,6 +6,7 @@ import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'package:ipotato_timer/ui/widgets/timer_action_button.dart';
 import 'package:ipotato_timer/extension/int_extension.dart';
+import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 
 class TimerCard extends StatefulWidget {
@@ -17,6 +19,7 @@ class TimerCard extends StatefulWidget {
 
 class _TimerCardState extends State<TimerCard>
     with AutomaticKeepAliveClientMixin {
+  late ReactionDisposer disposer;
   get genericHorizontalSpace => const SizedBox(
         width: 8,
       );
@@ -37,6 +40,9 @@ class _TimerCardState extends State<TimerCard>
     // print("int called for: ${widget.taskData.title}");
 
     // widget.taskData.decrement();
+
+    disposer =
+        when((_) => widget.taskData.duration.inSeconds <= 0, () => playAudio());
     super.initState();
   }
 
@@ -155,4 +161,11 @@ class _TimerCardState extends State<TimerCard>
 
   @override
   bool get wantKeepAlive => true;
+
+  void playAudio() {
+    AssetsAudioPlayer.newPlayer().open(
+      Audio("assets/audios/my_life.mp3"),
+      showNotification: true,
+    );
+  }
 }

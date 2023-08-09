@@ -12,6 +12,7 @@ class AddTimerButton extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () {
         showAddTaskOverlay(context);
+      
       },
       shape: const CircleBorder(),
       child: SvgPicture.asset(
