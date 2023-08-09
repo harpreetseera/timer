@@ -37,10 +37,6 @@ class _TimerCardState extends State<TimerCard>
 
   @override
   void initState() {
-    // print("int called for: ${widget.taskData.title}");
-
-    // widget.taskData.decrement();
-
     disposer =
         when((_) => widget.taskData.duration.inSeconds <= 0, () => playAudio());
     super.initState();
@@ -167,9 +163,12 @@ class _TimerCardState extends State<TimerCard>
   bool get wantKeepAlive => true;
 
   void playAudio() {
-    AssetsAudioPlayer.newPlayer().open(
-      Audio("assets/audios/my_life.mp3"),
-      showNotification: true,
-    );
+    final audioPlayer = context.read<AssetsAudioPlayer>();
+    if (!audioPlayer.isPlaying.value) {
+      audioPlayer.open(
+        Audio("assets/audios/my_life.mp3"),
+        showNotification: true,
+      );
+    }
   }
 }

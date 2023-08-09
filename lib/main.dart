@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/app_config.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
@@ -9,7 +10,8 @@ void main() {
   runApp(MultiProvider(
     providers: [
       Provider(create: (_) => TaskDatabase()),
-      Provider(create: (context) => TaskList([]))
+      Provider(create: (context) => TaskList([])),
+      Provider(create: (_) => AssetsAudioPlayer.newPlayer())
     ],
     child: const MyApp(),
   ));
