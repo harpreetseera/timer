@@ -25,7 +25,7 @@ class _TimerListState extends State<TimerList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
       child: Observer(
         builder: (_) {
           final list = taskList.taskDataList;

@@ -45,126 +45,133 @@ class _TimerCardState extends State<TimerCard>
   }
 
   @override
-  void didUpdateWidget(covariant TimerCard oldWidget) {
-    // widget.taskData.decrement();
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build(context);
     // TODO(harpreetseera): add logic here
     return Card(
       margin: const EdgeInsets.only(top: 16),
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Observer(
-              builder: (_) => widget.taskData.duration.inSeconds > 0
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          resolveTimer,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge!
-                              .copyWith(
-                                  color: Theme.of(context).colorScheme.primary),
-                        ),
-                        genericHorizontalSpace,
-                        TimerActionButton(
-                          iconData: widget.taskData.isActive
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                          action: () {
-                            widget.taskData.isActive =
-                                !widget.taskData.isActive;
-                            if (widget.taskData.isActive) {
-                              widget.taskData.decrement();
-                            }
-                            widget.taskData.registerTime = DateTime.now();
-                            context
-                                .read<TaskDatabase>()
-                                .updateTaskInDB(widget.taskData);
-                          },
-                        ),
-                        genericHorizontalSpace,
-                        TimerActionButton(
-                            iconData: Icons.stop_rounded, action: () {}),
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset(AppConfig.soundWaveIconUrl),
-                        Text(
-                          "FINISHED",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge!
-                              .copyWith(
-                                  color: Theme.of(context).colorScheme.primary),
-                        ),
-                        SvgPicture.asset(AppConfig.soundWaveIconUrl),
-                      ],
-                    ),
+      elevation: 4,
+
+      /// Added this radius intentionally although the figma design didn't had this.
+      /// Because the card looks uneven in MARK COMPLETE State
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 22.0,
+              horizontal: 32,
             ),
-            Text(
-              widget.taskData.title,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(color: Theme.of(context).colorScheme.secondary),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Observer(
+                  builder: (_) => widget.taskData.duration.inSeconds > 0
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              resolveTimer,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                            ),
+                            genericHorizontalSpace,
+                            TimerActionButton(
+                              iconData: widget.taskData.isActive
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
+                              action: () {
+                                widget.taskData.isActive =
+                                    !widget.taskData.isActive;
+                                if (widget.taskData.isActive) {
+                                  widget.taskData.decrement();
+                                }
+                                widget.taskData.registerTime = DateTime.now();
+                                context
+                                    .read<TaskDatabase>()
+                                    .updateTaskInDB(widget.taskData);
+                              },
+                            ),
+                            genericHorizontalSpace,
+                            TimerActionButton(
+                                iconData: Icons.stop_rounded, action: () {}),
+                          ],
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset(AppConfig.soundWaveIconUrl),
+                              Text(
+                                "FINISHED",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineLarge!
+                                    .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                              ),
+                              SvgPicture.asset(AppConfig.soundWaveIconUrl),
+                            ],
+                          ),
+                        ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  widget.taskData.title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: Theme.of(context).colorScheme.secondary),
+                ),
+                Text(
+                  widget.taskData.description,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.primary),
+                ),
+              ],
             ),
-            Text(
-              widget.taskData.description,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: Theme.of(context).colorScheme.primary),
-            ),
-            Observer(
-              builder: (context) => Offstage(
-                offstage: widget.taskData.duration.inSeconds > 0,
-                child: MaterialButton(
-                  minWidth: double.maxFinite,
-                  color: Theme.of(context).colorScheme.tertiaryContainer,
-                  onPressed: () async {
-                    // if (formKey.currentState!.validate()) {
-                    //   final taskData = TaskData(
-                    //     description: descriptionController.text.trim(),
-                    //     duration: taskDuration.duration,
-                    //     title: titleController.text.trim(),
-                    //     isActive: true,
-                    //   );
-                    //   // context.read<TaskList>().taskDataList.add(taskData);
-                    //   taskData.decrement();
-                    //   context.read<TaskList>().taskDataList =
-                    //       context.read<TaskList>().taskDataList + [taskData];
-                    //   Navigator.of(context).pop();
-                    final db = context.read<TaskDatabase>();
-                    // TODO: update query based on title to ID
-                    await db.delete(db.taskTable)
-                      ..where((tbl) => tbl.title.equals(widget.taskData.title));
-                    // final afterRemoval =
-                    context.read<TaskList>().taskDataList.removeWhere(
-                        (element) => element.title == widget.taskData.title);
-                    // TODO: find effective way of assigning new values
-                    context.read<TaskList>().taskDataList =
-                        List.from(context.read<TaskList>().taskDataList);
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text("Mark Complete"),
-                  ),
+          ),
+          Observer(
+            builder: (context) => Offstage(
+              offstage: widget.taskData.duration.inSeconds > 0,
+              child: MaterialButton(
+                minWidth: double.maxFinite,
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                onPressed: () async {
+                  final db = context.read<TaskDatabase>();
+                  // TODO: update query based on title to ID
+                  await db.delete(db.taskTable)
+                    ..where((tbl) => tbl.title.equals(widget.taskData.title));
+                  // final afterRemoval =
+                  context.read<TaskList>().taskDataList.removeWhere(
+                      (element) => element.title == widget.taskData.title);
+                  // TODO: find effective way of assigning new values
+                  context.read<TaskList>().taskDataList =
+                      List.from(context.read<TaskList>().taskDataList);
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text("MARK COMPLETE"),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
