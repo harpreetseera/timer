@@ -1,6 +1,8 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ipotato_timer/app_config.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/repository/database/task_database.dart';
@@ -94,11 +96,19 @@ class _TimerCardState extends State<TimerCard>
                             iconData: Icons.stop_rounded, action: () {}),
                       ],
                     )
-                  : const Row(
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.music_video_sharp),
-                        Text("Finished"),
-                        Icon(Icons.music_video_sharp),
+                        SvgPicture.asset(AppConfig.soundWaveIconUrl),
+                        Text(
+                          "FINISHED",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge!
+                              .copyWith(
+                                  color: Theme.of(context).colorScheme.primary),
+                        ),
+                        SvgPicture.asset(AppConfig.soundWaveIconUrl),
                       ],
                     ),
             ),
