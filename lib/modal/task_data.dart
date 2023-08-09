@@ -41,9 +41,10 @@ abstract class TaskBase with Store {
 
   @action
   Future<void> decrement() async {
+    await Future.delayed(const Duration(seconds: 1));
     while (duration.inSeconds > 0 && isActive) {
-      await Future.delayed(const Duration(seconds: 1));
       duration = duration - const Duration(seconds: 1);
+      await Future.delayed(const Duration(seconds: 1));
     }
   }
 
