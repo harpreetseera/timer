@@ -51,7 +51,7 @@ mixin _$TaskData on TaskBase, Store {
       AsyncAction('TaskBase.addTaskInDB', context: context);
 
   @override
-  Future<void> addTaskInDB(dynamic context) {
+  Future<void> addTaskInDB(BuildContext context) {
     return _$addTaskInDBAsyncAction.run(() => super.addTaskInDB(context));
   }
 

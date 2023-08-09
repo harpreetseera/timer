@@ -26,6 +26,7 @@ abstract class TaskBase with Store {
     required this.description,
     required this.duration,
     required this.isActive,
+    required this.registerTime,
   });
   String title;
   String description;
@@ -35,6 +36,8 @@ abstract class TaskBase with Store {
 
   @observable
   bool isActive;
+
+  DateTime registerTime;
 
   @action
   Future<void> decrement() async {
@@ -53,6 +56,7 @@ abstract class TaskBase with Store {
             description: description,
             duration: duration.inSeconds,
             active: true,
+            registerTime: registerTime.millisecondsSinceEpoch,
           ),
         );
   }

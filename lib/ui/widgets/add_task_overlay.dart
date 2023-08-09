@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
-import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'package:ipotato_timer/ui/widgets/duration_selector.dart';
 import 'package:provider/provider.dart';
 
@@ -45,6 +44,7 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                         duration: taskDuration.duration,
                         title: titleController.text.trim(),
                         isActive: true,
+                        registerTime: DateTime.now(),
                       );
                       // context.read<TaskList>().taskDataList.add(taskData);
                       taskData.decrement();

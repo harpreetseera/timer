@@ -12,6 +12,7 @@ class TaskTable extends Table {
   TextColumn get description => text()();
   IntColumn get duration => integer()();
   BoolColumn get active => boolean()();
+  IntColumn get registerTime => integer()();
 }
 
 @DriftDatabase(tables: [TaskTable])

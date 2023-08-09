@@ -46,9 +46,15 @@ class $TaskTableTable extends TaskTable
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
+  static const VerificationMeta _registerTimeMeta =
+      const VerificationMeta('registerTime');
+  @override
+  late final GeneratedColumn<int> registerTime = GeneratedColumn<int>(
+      'register_time', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, title, description, duration, active];
+      [id, title, description, duration, active, registerTime];
   @override
   String get aliasedName => _alias ?? 'task_table';
   @override
@@ -87,6 +93,14 @@ class $TaskTableTable extends TaskTable
     } else if (isInserting) {
       context.missing(_activeMeta);
     }
+    if (data.containsKey('register_time')) {
+      context.handle(
+          _registerTimeMeta,
+          registerTime.isAcceptableOrUnknown(
+              data['register_time']!, _registerTimeMeta));
+    } else if (isInserting) {
+      context.missing(_registerTimeMeta);
+    }
     return context;
   }
 
@@ -106,6 +120,8 @@ class $TaskTableTable extends TaskTable
           .read(DriftSqlType.int, data['${effectivePrefix}duration'])!,
       active: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}active'])!,
+      registerTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}register_time'])!,
     );
   }
 
@@ -121,12 +137,14 @@ class TaskTableData extends DataClass implements Insertable<TaskTableData> {
   final String description;
   final int duration;
   final bool active;
+  final int registerTime;
   const TaskTableData(
       {required this.id,
       required this.title,
       required this.description,
       required this.duration,
-      required this.active});
+      required this.active,
+      required this.registerTime});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -135,6 +153,7 @@ class TaskTableData extends DataClass implements Insertable<TaskTableData> {
     map['description'] = Variable<String>(description);
     map['duration'] = Variable<int>(duration);
     map['active'] = Variable<bool>(active);
+    map['register_time'] = Variable<int>(registerTime);
     return map;
   }
 
@@ -145,6 +164,7 @@ class TaskTableData extends DataClass implements Insertable<TaskTableData> {
       description: Value(description),
       duration: Value(duration),
       active: Value(active),
+      registerTime: Value(registerTime),
     );
   }
 
@@ -157,6 +177,7 @@ class TaskTableData extends DataClass implements Insertable<TaskTableData> {
       description: serializer.fromJson<String>(json['description']),
       duration: serializer.fromJson<int>(json['duration']),
       active: serializer.fromJson<bool>(json['active']),
+      registerTime: serializer.fromJson<int>(json['registerTime']),
     );
   }
   @override
@@ -168,6 +189,7 @@ class TaskTableData extends DataClass implements Insertable<TaskTableData> {
       'description': serializer.toJson<String>(description),
       'duration': serializer.toJson<int>(duration),
       'active': serializer.toJson<bool>(active),
+      'registerTime': serializer.toJson<int>(registerTime),
     };
   }
 
@@ -176,13 +198,15 @@ class TaskTableData extends DataClass implements Insertable<TaskTableData> {
           String? title,
           String? description,
           int? duration,
-          bool? active}) =>
+          bool? active,
+          int? registerTime}) =>
       TaskTableData(
         id: id ?? this.id,
         title: title ?? this.title,
         description: description ?? this.description,
         duration: duration ?? this.duration,
         active: active ?? this.active,
+        registerTime: registerTime ?? this.registerTime,
       );
   @override
   String toString() {
@@ -191,13 +215,15 @@ class TaskTableData extends DataClass implements Insertable<TaskTableData> {
           ..write('title: $title, ')
           ..write('description: $description, ')
           ..write('duration: $duration, ')
-          ..write('active: $active')
+          ..write('active: $active, ')
+          ..write('registerTime: $registerTime')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, title, description, duration, active);
+  int get hashCode =>
+      Object.hash(id, title, description, duration, active, registerTime);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -206,7 +232,8 @@ class TaskTableData extends DataClass implements Insertable<TaskTableData> {
           other.title == this.title &&
           other.description == this.description &&
           other.duration == this.duration &&
-          other.active == this.active);
+          other.active == this.active &&
+          other.registerTime == this.registerTime);
 }
 
 class TaskTableCompanion extends UpdateCompanion<TaskTableData> {
@@ -215,12 +242,14 @@ class TaskTableCompanion extends UpdateCompanion<TaskTableData> {
   final Value<String> description;
   final Value<int> duration;
   final Value<bool> active;
+  final Value<int> registerTime;
   const TaskTableCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
     this.description = const Value.absent(),
     this.duration = const Value.absent(),
     this.active = const Value.absent(),
+    this.registerTime = const Value.absent(),
   });
   TaskTableCompanion.insert({
     this.id = const Value.absent(),
@@ -228,16 +257,19 @@ class TaskTableCompanion extends UpdateCompanion<TaskTableData> {
     required String description,
     required int duration,
     required bool active,
+    required int registerTime,
   })  : title = Value(title),
         description = Value(description),
         duration = Value(duration),
-        active = Value(active);
+        active = Value(active),
+        registerTime = Value(registerTime);
   static Insertable<TaskTableData> custom({
     Expression<int>? id,
     Expression<String>? title,
     Expression<String>? description,
     Expression<int>? duration,
     Expression<bool>? active,
+    Expression<int>? registerTime,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -245,6 +277,7 @@ class TaskTableCompanion extends UpdateCompanion<TaskTableData> {
       if (description != null) 'description': description,
       if (duration != null) 'duration': duration,
       if (active != null) 'active': active,
+      if (registerTime != null) 'register_time': registerTime,
     });
   }
 
@@ -253,13 +286,15 @@ class TaskTableCompanion extends UpdateCompanion<TaskTableData> {
       Value<String>? title,
       Value<String>? description,
       Value<int>? duration,
-      Value<bool>? active}) {
+      Value<bool>? active,
+      Value<int>? registerTime}) {
     return TaskTableCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
       duration: duration ?? this.duration,
       active: active ?? this.active,
+      registerTime: registerTime ?? this.registerTime,
     );
   }
 
@@ -281,6 +316,9 @@ class TaskTableCompanion extends UpdateCompanion<TaskTableData> {
     if (active.present) {
       map['active'] = Variable<bool>(active.value);
     }
+    if (registerTime.present) {
+      map['register_time'] = Variable<int>(registerTime.value);
+    }
     return map;
   }
 
@@ -291,7 +329,8 @@ class TaskTableCompanion extends UpdateCompanion<TaskTableData> {
           ..write('title: $title, ')
           ..write('description: $description, ')
           ..write('duration: $duration, ')
-          ..write('active: $active')
+          ..write('active: $active, ')
+          ..write('registerTime: $registerTime')
           ..write(')'))
         .toString();
   }
