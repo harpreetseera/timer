@@ -86,8 +86,11 @@ class _TimerCardState extends State<TimerCard>
                                 !widget.taskData.isActive;
                             if (widget.taskData.isActive) {
                               widget.taskData.decrement();
-                              
                             }
+                            widget.taskData.registerTime = DateTime.now();
+                            context
+                                .read<TaskDatabase>()
+                                .updateTaskInDB(widget.taskData);
                           },
                         ),
                         genericHorizontalSpace,

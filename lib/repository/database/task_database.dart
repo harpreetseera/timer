@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'dart:io';
 
 import 'package:drift/native.dart';
+import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 part 'task_database.g.dart';
@@ -21,6 +22,18 @@ class TaskDatabase extends _$TaskDatabase {
 
   @override
   int get schemaVersion => 1;
+  Future<List<TaskTableData>> get allTaskEntries => select(taskTable).get();
+
+  Future updateTaskInDB(TaskData target) {
+    return (update(taskTable)..where((t) => t.title.equals(target.title)))
+        .write(
+      TaskTableCompanion(
+        registerTime: Value(target.registerTime.millisecondsSinceEpoch),
+        active: Value(target.isActive),
+        duration: Value(target.duration.inSeconds),
+      ),
+    );
+  }
 }
 
 QueryExecutor _openConnection() {
