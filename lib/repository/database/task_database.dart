@@ -34,6 +34,11 @@ class TaskDatabase extends _$TaskDatabase {
       ),
     );
   }
+
+  Future deleteTask(TaskData taskData) {
+    return (delete(taskTable)..where((t) => t.title.equals(taskData.title)))
+        .go();
+  }
 }
 
 QueryExecutor _openConnection() {

@@ -41,24 +41,28 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
     taskList = context.read<TaskList>();
-    // if (taskList.taskDataList.length < 1) {
-    //   Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry!);
-    // }
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      disposer = when(
-          (_) => taskList.taskDataList.isEmpty && taskList.loading == false,
-          () => Overlay.of(context, debugRequiredFor: widget)
-              .insert(overlayEntry!));
-      disposer2 = when(
-          (_) => taskList.taskDataList.isNotEmpty, () => overlayEntry.remove());
-      // super.initState();
-      // if (taskList.taskDataList.isEmpty) {
-      //   Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry!);
-      // }
+      disposer = reaction((_) => taskList.taskDataList, (msg) {
+        if (taskList.taskDataList.isEmpty && !taskList.loading) {
+          Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry!);
+        }
+      });
+
+      disposer2 = reaction((_) => taskList.taskDataList, (msg) {
+        if (taskList.taskDataList.isNotEmpty && !taskList.loading) {
+          overlayEntry.remove();
+        }
+      });
     });
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    overlayEntry.dispose();
+    super.dispose();
   }
 
   @override
@@ -70,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
         callBack: () {
           if (Overlay.of(context, debugRequiredFor: widget).mounted) {
             overlayEntry.remove();
-            overlayEntry.dispose();
+            // overlayEntry.dispose();
           }
         },
       ),

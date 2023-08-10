@@ -99,7 +99,10 @@ class _TimerCardState extends State<TimerCard>
                             ),
                             genericHorizontalSpace,
                             TimerActionButton(
-                                iconData: Icons.stop_rounded, action: () {}),
+                                iconData: Icons.stop_rounded,
+                                action: () {
+                                  deleteTask(widget.taskData);
+                                }),
                           ],
                         )
                       : Padding(
@@ -152,17 +155,8 @@ class _TimerCardState extends State<TimerCard>
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                onPressed: () async {
-                  final db = context.read<TaskDatabase>();
-                  // TODO: update query based on title to ID
-                  await db.delete(db.taskTable)
-                    ..where((tbl) => tbl.title.equals(widget.taskData.title));
-                  // final afterRemoval =
-                  context.read<TaskList>().taskDataList.removeWhere(
-                      (element) => element.title == widget.taskData.title);
-                  // TODO: find effective way of assigning new values
-                  context.read<TaskList>().taskDataList =
-                      List.from(context.read<TaskList>().taskDataList);
+                onPressed: () {
+                  deleteTask(widget.taskData);
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(12.0),
@@ -187,5 +181,21 @@ class _TimerCardState extends State<TimerCard>
         showNotification: true,
       );
     }
+  }
+
+  deleteTask(TaskData taskData) async {
+    final db = context.read<TaskDatabase>();
+    // TODO: update query based on title to ID
+    // await db.delete(db.taskTable)
+    //   ..where((tbl) => tbl.title.equals(widget.taskData.title));
+    context
+        .read<TaskList>()
+        .taskDataList
+        .removeWhere((element) => element.title == widget.taskData.title);
+    db.deleteTask(widget.taskData);
+    // final afterRemoval =
+    // TODO: find effective way of assigning new values
+    context.read<TaskList>().taskDataList =
+        List.from(context.read<TaskList>().taskDataList);
   }
 }
