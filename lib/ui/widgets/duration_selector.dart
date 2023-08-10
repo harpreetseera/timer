@@ -140,7 +140,7 @@ class DurationSelector extends StatelessWidget {
                             useMagnifier: true,
                             itemExtent: 32,
                             scrollController: FixedExtentScrollController(
-                              initialItem: 0,
+                              initialItem: timeType,
                             ),
                             onSelectedItemChanged: (int selectedItem) {
                               updateTime(selectedItem);
