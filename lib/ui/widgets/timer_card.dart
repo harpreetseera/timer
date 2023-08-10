@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ipotato_timer/app_config.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
+import 'package:ipotato_timer/repository/database/database_interface.dart';
 import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'package:ipotato_timer/ui/widgets/timer_action_button.dart';
 import 'package:ipotato_timer/extension/int_extension.dart';
@@ -93,7 +94,7 @@ class _TimerCardState extends State<TimerCard>
                                 }
                                 widget.taskData.registerTime = DateTime.now();
                                 context
-                                    .read<TaskDatabase>()
+                                    .read<IPotatoTimerDB>()
                                     .updateTaskInDB(widget.taskData);
                               },
                             ),
@@ -184,13 +185,12 @@ class _TimerCardState extends State<TimerCard>
   }
 
   deleteTask(TaskData taskData) async {
-    final db = context.read<TaskDatabase>();
-
+    final db = context.read<IPotatoTimerDB>();
     context
         .read<TaskList>()
         .taskDataList
         .removeWhere((element) => element.id == widget.taskData.id);
-    db.deleteTask(widget.taskData);
+    db.deleteTaskFromDB(widget.taskData);
     // TODO: find effective way of assigning new values
     context.read<TaskList>().taskDataList =
         List.from(context.read<TaskList>().taskDataList);
