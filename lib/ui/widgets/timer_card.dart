@@ -185,15 +185,12 @@ class _TimerCardState extends State<TimerCard>
 
   deleteTask(TaskData taskData) async {
     final db = context.read<TaskDatabase>();
-    // TODO: update query based on title to ID
-    // await db.delete(db.taskTable)
-    //   ..where((tbl) => tbl.title.equals(widget.taskData.title));
+
     context
         .read<TaskList>()
         .taskDataList
-        .removeWhere((element) => element.title == widget.taskData.title);
+        .removeWhere((element) => element.id == widget.taskData.id);
     db.deleteTask(widget.taskData);
-    // final afterRemoval =
     // TODO: find effective way of assigning new values
     context.read<TaskList>().taskDataList =
         List.from(context.read<TaskList>().taskDataList);

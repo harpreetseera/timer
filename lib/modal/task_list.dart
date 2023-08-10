@@ -21,26 +21,31 @@ abstract class TaskListBase with Store {
   Future<void> fetchListFromDB(BuildContext context) async {
     final db = context.read<TaskDatabase>();
     loading = true;
-    final alltasks = await db.select(db.taskTable).get();
+    final alltasks = await db.allTaskEntries;
     loading = false;
-    taskDataList = alltasks.map(
-      (e) {
-        final taskData = TaskData(
-          title: e.title,
-          description: e.description,
-          duration: Duration(
-              seconds: e.active
-                  ? (((e.registerTime / 1000).floor() + e.duration) -
-                      (DateTime.now().millisecondsSinceEpoch / 1000).floor())
-                  : e.duration),
-          isActive: e.active,
-          registerTime: DateTime.fromMillisecondsSinceEpoch(e.registerTime),
-        );
-        if (taskData.isActive) {
-          taskData.decrement();
-        }
-        return taskData;
-      },
-    ).toList();
+    taskDataList = alltasks
+        .map(
+          (e) => mappedTaskData(e),
+        )
+        .toList();
   }
+}
+
+TaskData mappedTaskData(TaskTableData data) {
+  final taskData = TaskData(
+    id: data.id,
+    title: data.title,
+    description: data.description,
+    duration: Duration(
+        seconds: data.isActive
+            ? (((data.registerTime / 1000).floor() + data.duration) -
+                (DateTime.now().millisecondsSinceEpoch / 1000).floor())
+            : data.duration),
+    isActive: data.isActive,
+    registerTime: DateTime.fromMillisecondsSinceEpoch(data.registerTime),
+  );
+  if (taskData.isActive) {
+    taskData.decrement();
+  }
+  return taskData;
 }

@@ -8,11 +8,11 @@ import 'package:path/path.dart' as p;
 part 'task_database.g.dart';
 
 class TaskTable extends Table {
-  IntColumn get id => integer().autoIncrement()();
+  TextColumn get id => text()();
   TextColumn get title => text()();
   TextColumn get description => text()();
   IntColumn get duration => integer()();
-  BoolColumn get active => boolean()();
+  BoolColumn get isActive => boolean()();
   IntColumn get registerTime => integer()();
 }
 
@@ -22,22 +22,53 @@ class TaskDatabase extends _$TaskDatabase {
 
   @override
   int get schemaVersion => 1;
+
   Future<List<TaskTableData>> get allTaskEntries => select(taskTable).get();
 
-  Future updateTaskInDB(TaskData target) {
-    return (update(taskTable)..where((t) => t.title.equals(target.title)))
-        .write(
-      TaskTableCompanion(
-        registerTime: Value(target.registerTime.millisecondsSinceEpoch),
-        active: Value(target.isActive),
-        duration: Value(target.duration.inSeconds),
+  Future<void> addTaskInDB(TaskData task) {
+    return into(taskTable).insert(
+      TaskTableData(
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        duration: task.duration.inSeconds,
+        isActive: task.isActive,
+        registerTime: task.registerTime.millisecondsSinceEpoch,
       ),
     );
   }
 
-  Future deleteTask(TaskData taskData) {
-    return (delete(taskTable)..where((t) => t.title.equals(taskData.title)))
-        .go();
+  Future<void> updateTaskInDB(TaskData task) {
+    return (update(taskTable)..where((t) => t.id.equals(task.id))).write(
+      TaskTableCompanion(
+        registerTime: Value(task.registerTime.millisecondsSinceEpoch),
+        isActive: Value(task.isActive),
+        duration: Value(task.duration.inSeconds),
+      ),
+    );
+  }
+
+  Future deleteTask(TaskData task) {
+    return (delete(taskTable)..where((t) => t.id.equals(task.id))).go();
+  }
+
+  TaskData mappedTaskData(TaskTableData data) {
+    final taskData = TaskData(
+      id: data.id,
+      title: data.title,
+      description: data.description,
+      duration: Duration(
+          seconds: data.isActive
+              ? (((data.registerTime / 1000).floor() + data.duration) -
+                  (DateTime.now().millisecondsSinceEpoch / 1000).floor())
+              : data.duration),
+      isActive: data.isActive,
+      registerTime: DateTime.fromMillisecondsSinceEpoch(data.registerTime),
+    );
+    if (taskData.isActive) {
+      taskData.decrement();
+    }
+    return taskData;
   }
 }
 
