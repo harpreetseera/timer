@@ -7,9 +7,9 @@ import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/repository/audio_player/audio_player_interface.dart';
 import 'package:ipotato_timer/repository/database/database_interface.dart';
-import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'package:ipotato_timer/ui/widgets/timer_action_button.dart';
 import 'package:ipotato_timer/extension/int_extension.dart';
+import 'package:ipotato_timer/utils/utility.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 
@@ -22,8 +22,8 @@ class TimerCard extends StatefulWidget {
 }
 
 class _TimerCardState extends State<TimerCard>
-    with AutomaticKeepAliveClientMixin {
-  late ReactionDisposer disposer;
+    with AutomaticKeepAliveClientMixin, Utility {
+  late ReactionDisposer disposer, sortOrderTask;
   get genericHorizontalSpace => const SizedBox(
         width: 8,
       );
@@ -41,8 +41,11 @@ class _TimerCardState extends State<TimerCard>
 
   @override
   void initState() {
-    disposer =
-        when((_) => widget.taskData.duration.inSeconds <= 0, () => playAudio());
+    disposer = when((_) => widget.taskData.duration <= Duration.zero, () {
+      playAudio();
+      sortTaskList(context);
+    });
+
     super.initState();
   }
 
@@ -198,12 +201,19 @@ class _TimerCardState extends State<TimerCard>
         .read<TaskList>()
         .taskDataList
         .where((element) {
-          return element.duration.inSeconds <= 0;
+          return element.duration <= Duration.zero;
         })
         .toList()
         .length;
     context
         .read<IAudioPlayer>()
         .terminateAudio(allTasksMarkedComplete: completedTaskLength == 1);
+  }
+
+  void sortTaskList(BuildContext context) {
+    var taskList = context.read<TaskList>().taskDataList;
+    if (taskList.any((element) => element.duration <= Duration.zero)) {
+      context.read<TaskList>().taskDataList = sortComlpetedTasks(taskList);
+    }
   }
 }

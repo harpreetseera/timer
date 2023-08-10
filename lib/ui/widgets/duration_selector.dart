@@ -13,13 +13,14 @@ abstract class TaskDurationBase with Store {
     this.minutes,
     this.seconds,
   );
-  @observable
-  int hours = 00;
 
+  static int get intialTimeValue => 00;
   @observable
-  int minutes = 00;
+  int hours = intialTimeValue;
   @observable
-  int seconds = 00;
+  int minutes = intialTimeValue;
+  @observable
+  int seconds = intialTimeValue;
 
   @computed
   Duration get duration => Duration(
