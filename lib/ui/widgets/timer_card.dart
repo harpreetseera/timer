@@ -43,7 +43,12 @@ class _TimerCardState extends State<TimerCard>
   void initState() {
     disposer = when((_) => widget.taskData.duration <= Duration.zero, () {
       playAudio();
-      sortTaskList(context);
+    });
+
+    sortOrderTask = reaction((p0) => widget.taskData.duration, (duration) {
+      if (widget.taskData.duration <= Duration.zero) {
+        sortTaskList(context);
+      }
     });
 
     super.initState();
