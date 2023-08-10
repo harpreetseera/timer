@@ -25,6 +25,22 @@ mixin _$TaskList on TaskListBase, Store {
     });
   }
 
+  late final _$loadingAtom =
+      Atom(name: 'TaskListBase.loading', context: context);
+
+  @override
+  bool get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
+    });
+  }
+
   late final _$fetchListFromDBAsyncAction =
       AsyncAction('TaskListBase.fetchListFromDB', context: context);
 
@@ -37,7 +53,8 @@ mixin _$TaskList on TaskListBase, Store {
   @override
   String toString() {
     return '''
-taskDataList: ${taskDataList}
+taskDataList: ${taskDataList},
+loading: ${loading}
     ''';
   }
 }

@@ -9,15 +9,20 @@ part 'task_list.g.dart';
 class TaskList = TaskListBase with _$TaskList;
 
 abstract class TaskListBase with Store {
-  TaskListBase(this.taskDataList);
+  TaskListBase(this.taskDataList, {this.loading = false});
 
   @observable
   List<TaskData> taskDataList;
 
+  @observable
+  bool loading;
+
   @action
   Future<void> fetchListFromDB(BuildContext context) async {
     final db = context.read<TaskDatabase>();
+    loading = true;
     final alltasks = await db.select(db.taskTable).get();
+    loading = false;
     taskDataList = alltasks.map(
       (e) {
         final taskData = TaskData(

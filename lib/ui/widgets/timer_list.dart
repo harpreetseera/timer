@@ -28,11 +28,15 @@ class _TimerListState extends State<TimerList> {
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
       child: Observer(
         builder: (_) {
-          final list = taskList.taskDataList;
-          return ListView.builder(
-            itemCount: list.length,
-            itemBuilder: (context, index) => TimerCard(taskData: list[index]),
-          );
+          if (taskList.loading) {
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            final list = taskList.taskDataList;
+            return ListView.builder(
+              itemCount: list.length,
+              itemBuilder: (context, index) => TimerCard(taskData: list[index]),
+            );
+          }
         },
       ),
     );
