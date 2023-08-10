@@ -6,7 +6,7 @@ import 'package:ipotato_timer/repository/database/task_database.dart';
 class PotatoTimerDB implements IPotatoTimerDB {
   final TaskDatabase taskDatabase;
 
-  PotatoTimerDB(this.taskDatabase);
+  PotatoTimerDB({required this.taskDatabase});
   @override
   Future<void> addTaskInDB(TaskData task) async {
     await taskDatabase.addTaskInDB(task);

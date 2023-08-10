@@ -5,6 +5,7 @@ class AppConfig {
   static const String addIconUrl = "$assetIconPath/add_icon.svg";
   static const String soundWaveIconUrl = "$assetIconPath/sound_wave.svg";
   static const String directionArrowUrl = "$assetIconPath/direction_arrow.svg";
+  static const String audioFilePath = "assets/audios/my_life.mp3";
 
   static const String appBarTitle = "Potato Timer";
 

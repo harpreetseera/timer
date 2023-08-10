@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ipotato_timer/app_config.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
+import 'package:ipotato_timer/repository/audio_player/audio_player_interface.dart';
 import 'package:ipotato_timer/repository/database/database_interface.dart';
 import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'package:ipotato_timer/ui/widgets/timer_action_button.dart';
@@ -157,6 +158,7 @@ class _TimerCardState extends State<TimerCard>
                   borderRadius: BorderRadius.circular(30),
                 ),
                 onPressed: () {
+                  checkForAudioTermination();
                   deleteTask(widget.taskData);
                 },
                 child: const Padding(
@@ -175,13 +177,8 @@ class _TimerCardState extends State<TimerCard>
   bool get wantKeepAlive => true;
 
   void playAudio() {
-    final audioPlayer = context.read<AssetsAudioPlayer>();
-    if (!audioPlayer.isPlaying.value) {
-      audioPlayer.open(
-        Audio("assets/audios/my_life.mp3"),
-        showNotification: true,
-      );
-    }
+    final audioPlayer = context.read<IAudioPlayer>();
+    audioPlayer.playAudioIfAlreadyNotPlaying();
   }
 
   deleteTask(TaskData taskData) async {
@@ -194,5 +191,19 @@ class _TimerCardState extends State<TimerCard>
     // TODO: find effective way of assigning new values
     context.read<TaskList>().taskDataList =
         List.from(context.read<TaskList>().taskDataList);
+  }
+
+  void checkForAudioTermination() {
+    final completedTaskLength = context
+        .read<TaskList>()
+        .taskDataList
+        .where((element) {
+          return element.duration.inSeconds <= 0;
+        })
+        .toList()
+        .length;
+    context
+        .read<IAudioPlayer>()
+        .terminateAudio(allTasksMarkedComplete: completedTaskLength == 1);
   }
 }
