@@ -1,13 +1,48 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:ipotato_timer/extension/int_extension.dart';
+part 'duration_selector.g.dart';
+
+class TaskDuration = TaskDurationBase with _$TaskDuration;
+
+abstract class TaskDurationBase with Store {
+  TaskDurationBase(
+    this.hours,
+    this.minutes,
+    this.seconds,
+  );
+  @observable
+  int hours = 00;
+
+  @observable
+  int minutes = 00;
+  @observable
+  int seconds = 00;
+
+  @computed
+  Duration get duration => Duration(
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+      );
+
+  @computed
+  bool get isValidDuration {
+    return (hours > 0 || minutes > 0 || seconds > 0);
+  }
+}
 
 enum DurationType { hour, minutes, seconds }
 
 class DurationSelector extends StatelessWidget {
   final DurationType durationType;
+  final TaskDuration taskDuration;
   const DurationSelector({
     super.key,
     required this.durationType,
+    required this.taskDuration,
   });
 
   String get resolveDurationSymbol {
@@ -21,37 +56,78 @@ class DurationSelector extends StatelessWidget {
     }
   }
 
+  int get resolveDurationLimit {
+    switch (durationType) {
+      case DurationType.hour:
+        return 100;
+      case DurationType.minutes:
+        return 60;
+      case DurationType.seconds:
+        return 60;
+    }
+  }
+
+  int get timeType {
+    switch (durationType) {
+      case DurationType.hour:
+        return taskDuration.hours;
+      case DurationType.minutes:
+        return taskDuration.minutes;
+      case DurationType.seconds:
+        return taskDuration.seconds;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InkWell(
-            child: const Card(
+            child: Card(
               child: Padding(
                 padding: EdgeInsets.all(12.0),
-                child: Text("00"),
+                child: Observer(
+                  builder: (_) {
+                    return Text(
+                      timeType.prefixZeroForSingleDigit(),
+                      style: const TextStyle(fontSize: 20),
+                    );
+                  },
+                ),
               ),
             ),
             onTap: () {
               _showDialog(
-                CupertinoPicker(
-                  magnification: 1.22,
-                  squeeze: 1.2,
-                  useMagnifier: true,
-                  itemExtent: 32,
-                  scrollController: FixedExtentScrollController(
-                    initialItem: 0,
+                Material(
+                  child: Column(
+                    children: [
+                      Text("Select ${durationType.name} duration"),
+                      Expanded(
+                        child: CupertinoPicker(
+                          magnification: 1.22,
+                          squeeze: 1.2,
+                          useMagnifier: true,
+                          itemExtent: 32,
+                          scrollController: FixedExtentScrollController(
+                            initialItem: 0,
+                          ),
+                          onSelectedItemChanged: (int selectedItem) {
+                            updateTime(selectedItem);
+                          },
+                          children: List<Widget>.generate(
+                            List.generate(
+                                resolveDurationLimit, (index) => index).length,
+                            (int index) {
+                              return Center(
+                                child: Text(index.prefixZeroForSingleDigit()),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  onSelectedItemChanged: (int selectedItem) {
-                    // setState(() {
-                    //   _selectedFruit = selectedItem;
-                    // });
-                  },
-                  children: List<Widget>.generate(
-                      List.generate(60, (index) => index).length, (int index) {
-                    return Center(child: Text(index.toString()));
-                  }),
                 ),
                 context,
               );
@@ -83,5 +159,16 @@ class DurationSelector extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void updateTime(int selectedItem) {
+    switch (durationType) {
+      case DurationType.hour:
+        taskDuration.hours = selectedItem;
+      case DurationType.minutes:
+        taskDuration.minutes = selectedItem;
+      case DurationType.seconds:
+        taskDuration.seconds = selectedItem;
+    }
   }
 }

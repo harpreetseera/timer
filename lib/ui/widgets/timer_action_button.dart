@@ -16,8 +16,10 @@ class TimerActionButton extends StatelessWidget {
       width: 24,
       child: FittedBox(
         child: IconButton.filled(
-          onPressed: action.call(),
-          iconSize: 32,
+          onPressed: () {
+            action.call();
+          },
+          iconSize: 36,
           icon: Icon(iconData),
           style: IconButton.styleFrom(
               shape: RoundedRectangleBorder(

@@ -1,25 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:ipotato_timer/modal/task_data.dart';
+import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/ui/widgets/duration_selector.dart';
+import 'package:provider/provider.dart';
 
-class AddTaskOverlay extends StatelessWidget {
+class AddTaskOverlay extends StatefulWidget {
   const AddTaskOverlay({super.key});
+
+  @override
+  State<AddTaskOverlay> createState() => _AddTaskOverlayState();
+}
+
+class _AddTaskOverlayState extends State<AddTaskOverlay> {
+  late TextEditingController titleController, descriptionController;
+  @override
+  void initState() {
+    titleController = TextEditingController();
+    descriptionController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
+    final taskDuration = TaskDuration(00, 00, 00);
+
     return AlertDialog(
       title: const Text('Add Task'),
       buttonPadding: EdgeInsets.zero,
       actionsPadding: const EdgeInsets.all(0),
       clipBehavior: Clip.hardEdge,
       actions: [
-        MaterialButton(
-          minWidth: double.maxFinite,
-          color: Theme.of(context).colorScheme.tertiaryContainer,
-          onPressed: () {},
-          child: const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text("Add Task"),
+        Observer(
+          builder: (context) => MaterialButton(
+            minWidth: double.maxFinite,
+            color: Theme.of(context).colorScheme.tertiaryContainer,
+            onPressed: taskDuration.isValidDuration
+                ? () async {
+                    if (formKey.currentState!.validate()) {
+                      final taskData = TaskData(
+                        description: descriptionController.text.trim(),
+                        duration: taskDuration.duration,
+                        title: titleController.text.trim(),
+                        isActive: true,
+                        registerTime: DateTime.now(),
+                      );
+                      // context.read<TaskList>().taskDataList.add(taskData);
+                      taskData.decrement();
+                      context.read<TaskList>().taskDataList =
+                          context.read<TaskList>().taskDataList + [taskData];
+                      taskData.addTaskInDB(context);
+                      Navigator.of(context).pop();
+                    }
+                  }
+                : null,
+            child: const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text("Add Task"),
+            ),
           ),
         )
       ],
@@ -33,6 +72,7 @@ class AddTaskOverlay extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
+                    controller: titleController,
                     decoration: InputDecoration(
                       labelText: "Title",
                       hintText: "Superdesigner",
@@ -47,12 +87,27 @@ class AddTaskOverlay extends StatelessWidget {
                         ),
                       ),
                     ),
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "required";
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 24,
                   ),
                   TextFormField(
-                    maxLines: 6,
+                    controller: descriptionController,
+                    maxLines: 3,
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "required";
+                      } else {
+                        return null;
+                      }
+                    },
                     decoration: InputDecoration(
                       labelText: "Description",
                       hintText: "e.g. john@gmail.com",
@@ -75,18 +130,24 @@ class AddTaskOverlay extends StatelessWidget {
                     "Duration",
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
-                  const Row(
+                  Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      DurationSelector(durationType: DurationType.hour),
+                      DurationSelector(
+                        durationType: DurationType.hour,
+                        taskDuration: taskDuration,
+                      ),
                       Text(":"),
-                      DurationSelector(durationType: DurationType.minutes),
+                      DurationSelector(
+                        durationType: DurationType.minutes,
+                        taskDuration: taskDuration,
+                      ),
                       Text(":"),
-                      DurationSelector(durationType: DurationType.seconds),
+                      DurationSelector(
+                        durationType: DurationType.seconds,
+                        taskDuration: taskDuration,
+                      ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 60,
                   ),
                 ],
               ),
@@ -94,6 +155,14 @@ class AddTaskOverlay extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Duration resolveDuration(int hours, int minutes, int seconds) {
+    return Duration(
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
     );
   }
 }

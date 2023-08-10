@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class AppConfig {
   static const String assetIconPath = "assets/icons";
   static const String addIconUrl = "$assetIconPath/add_icon.svg";
+  static const String soundWaveIconUrl = "$assetIconPath/sound_wave.svg";
+  static const String directionArrowUrl = "$assetIconPath/direction_arrow.svg";
 
   static const String appBarTitle = "Potato Timer";
 
