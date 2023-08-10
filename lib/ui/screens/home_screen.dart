@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
       disposer = reaction((_) => taskList.taskDataList, (msg) {
         if (taskList.taskDataList.isEmpty && !taskList.loading) {
-          Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry!);
+          Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry);
         }
       });
 
@@ -89,46 +89,5 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
-  }
-
-  // _showOverLay(BuildContext context) async {
-  //   // FloatingActionButtonLocation.endFloat.getOffset();
-  //   // RenderBox? renderBox =
-  //   //     GlobalKey().currentContext!.findRenderObject() as RenderBox?;
-  //   // Offset offset = renderBox!.localToGlobal(Offset.zero);
-
-  //   // OverlayState? overlayState = Overlay.of(context);
-
-  //   final overlayEntry = OverlayEntry(
-  //     builder: (context) {
-  //       return Positioned(
-  //         right: 78 / 2,
-  //         bottom: 78 + 16 + 12,
-  //         child: Row(
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           children: [
-  //             Text(
-  //               "No timers active.\nPress here to start a new one",
-  //               style: Theme.of(context).textTheme.bodyMedium,
-  //             ),
-  //             SvgPicture.asset(AppConfig.directionArrowUrl),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  //   Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry!);
-  // }
-}
-
-class AlmostEndFloatFabLocation extends StandardFabLocation
-    with FabEndOffsetX, FabFloatOffsetY {
-  @override
-  double getOffsetX(
-      ScaffoldPrelayoutGeometry scaffoldGeometry, double adjustment) {
-    final double directionalAdjustment =
-        scaffoldGeometry.textDirection == TextDirection.ltr ? -50.0 : 50.0;
-    return super.getOffsetX(scaffoldGeometry, adjustment) +
-        directionalAdjustment;
   }
 }
