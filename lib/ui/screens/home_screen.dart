@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -32,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
       Offset offset = renderBox!.localToGlobal(Offset.zero);
       overlayEntry = OverlayEntry(
         builder: (context) {
-          print("bottom padding is: ${View.of(context).padding.bottom}");
           return Positioned(
             // right: (78 - 14) / 2,
             // bottom: 78 + 16 + 12,
@@ -84,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: AddTimerButton(
         key: globalKey,
         callBack: () {
-          if (Overlay.of(context, debugRequiredFor: widget).mounted) {
+          if (overlayEntry.mounted) {
             overlayEntry.remove();
             // overlayEntry.dispose();
           }
