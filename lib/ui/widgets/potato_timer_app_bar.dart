@@ -22,10 +22,11 @@ class PotatoTimerAppBar extends StatelessWidget implements PreferredSizeWidget {
           style: appBarStyle,
         ),
         backgroundColor: appBarBgColor,
+        centerTitle: false,
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(84);
+  Size get preferredSize => Size.fromHeight(84);
 }

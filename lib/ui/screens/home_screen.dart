@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,29 +21,39 @@ class _HomeScreenState extends State<HomeScreen> {
   late ReactionDisposer disposer, disposer2;
   late TaskList taskList;
   late OverlayEntry overlayEntry;
+  GlobalKey globalKey = GlobalKey();
   @override
   void initState() {
-    overlayEntry = OverlayEntry(
-      builder: (context) {
-        return Positioned(
-          right: (78 - 14) / 2,
-          bottom: 78 + 16 + 12,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "No timers active.\nPress here to start a new one",
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              SvgPicture.asset(AppConfig.directionArrowUrl),
-            ],
-          ),
-        );
-      },
-    );
     taskList = context.read<TaskList>();
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
+      RenderBox? renderBox =
+          globalKey.currentContext!.findRenderObject() as RenderBox?;
+      Offset offset = renderBox!.localToGlobal(Offset.zero);
+      overlayEntry = OverlayEntry(
+        builder: (context) {
+          print("bottom padding is: ${View.of(context).padding.bottom}");
+          return Positioned(
+            // right: (78 - 14) / 2,
+            // bottom: 78 + 16 + 12,
+            // left: offset.dx - ((0.78 * offset.dx)),
+            // bottom: 0.15 * offset.dy,
+            right: (renderBox.size.width / 2) - (14),
+            top: offset.dy - (renderBox.size.height + 36),
+            // 78 - View.of(context).padding.bottom,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "No timers active.\nPress here to start a new one",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                SvgPicture.asset(AppConfig.directionArrowUrl),
+              ],
+            ),
+          );
+        },
+      );
       disposer = reaction((_) => taskList.taskDataList, (msg) {
         if (taskList.taskDataList.isEmpty && !taskList.loading) {
           Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry!);
@@ -71,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PotatoTimerAppBar(),
       body: TimerList(),
       floatingActionButton: AddTimerButton(
+        key: globalKey,
         callBack: () {
           if (Overlay.of(context, debugRequiredFor: widget).mounted) {
             overlayEntry.remove();
