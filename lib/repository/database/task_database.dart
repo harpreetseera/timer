@@ -1,10 +1,9 @@
 import 'package:drift/drift.dart';
 import 'dart:io';
-
 import 'package:drift/native.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as p;
+import 'package:path/path.dart' as path;
 part 'task_database.g.dart';
 
 class TaskTable extends Table {
@@ -23,9 +22,9 @@ class TaskDatabase extends _$TaskDatabase {
   @override
   int get schemaVersion => 1;
 
-  Future<List<TaskTableData>> get allTaskEntries => select(taskTable).get();
+  Future<List<TaskTableData>> allTaskEntries() => select(taskTable).get();
 
-  Future<void> addTaskInDB(TaskData task) {
+  Future<int> addTaskInDB(TaskData task) {
     return into(taskTable).insert(
       TaskTableData(
         id: task.id,
@@ -38,7 +37,7 @@ class TaskDatabase extends _$TaskDatabase {
     );
   }
 
-  Future<void> updateTaskInDB(TaskData task) {
+  Future<int> updateTaskInDB(TaskData task) {
     return (update(taskTable)..where((t) => t.id.equals(task.id))).write(
       TaskTableCompanion(
         registerTime: Value(task.registerTime.millisecondsSinceEpoch),
@@ -48,34 +47,15 @@ class TaskDatabase extends _$TaskDatabase {
     );
   }
 
-  Future deleteTask(TaskData task) {
+  Future<int> deleteTask(TaskData task) {
     return (delete(taskTable)..where((t) => t.id.equals(task.id))).go();
-  }
-
-  TaskData mappedTaskData(TaskTableData data) {
-    final taskData = TaskData(
-      id: data.id,
-      title: data.title,
-      description: data.description,
-      duration: Duration(
-          seconds: data.isActive
-              ? (((data.registerTime / 1000).floor() + data.duration) -
-                  (DateTime.now().millisecondsSinceEpoch / 1000).floor())
-              : data.duration),
-      isActive: data.isActive,
-      registerTime: DateTime.fromMillisecondsSinceEpoch(data.registerTime),
-    );
-    if (taskData.isActive) {
-      taskData.decrement();
-    }
-    return taskData;
   }
 }
 
 QueryExecutor _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'db.sqlite'));
+    final file = File(path.join(dbFolder.path, 'db.sqlite'));
     return NativeDatabase.createInBackground(file);
   });
 }

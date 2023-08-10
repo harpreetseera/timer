@@ -144,7 +144,6 @@ class TaskTableData extends DataClass implements Insertable<TaskTableData> {
       required this.duration,
       required this.isActive,
       required this.registerTime});
-
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};

@@ -2,6 +2,8 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/app_config.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
+import 'package:ipotato_timer/repository/database/database_interface.dart';
+import 'package:ipotato_timer/repository/database/potato_timer_db.dart';
 import 'package:ipotato_timer/repository/database/task_database.dart';
 import 'ui/screens/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +11,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      Provider(create: (_) => TaskDatabase()),
+      Provider<IPotatoTimerDB>(create: (_) => PotatoTimerDB(TaskDatabase())),
       Provider(create: (context) => TaskList([])),
       Provider(create: (_) => AssetsAudioPlayer.newPlayer())
     ],
