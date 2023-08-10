@@ -100,33 +100,65 @@ class DurationSelector extends StatelessWidget {
             onTap: () {
               _showDialog(
                 Material(
-                  child: Column(
-                    children: [
-                      Text("Select ${durationType.name} duration"),
-                      Expanded(
-                        child: CupertinoPicker(
-                          magnification: 1.22,
-                          squeeze: 1.2,
-                          useMagnifier: true,
-                          itemExtent: 32,
-                          scrollController: FixedExtentScrollController(
-                            initialItem: 0,
-                          ),
-                          onSelectedItemChanged: (int selectedItem) {
-                            updateTime(selectedItem);
-                          },
-                          children: List<Widget>.generate(
-                            List.generate(
-                                resolveDurationLimit, (index) => index).length,
-                            (int index) {
-                              return Center(
-                                child: Text(index.prefixZeroForSingleDigit()),
-                              );
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Select ${durationType.name} duration",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                            ),
+                            const Spacer(),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                icon: Icon(
+                                  Icons.done,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ))
+                          ],
+                        ),
+                        Divider(
+                          color:
+                              Theme.of(context).colorScheme.tertiaryContainer,
+                        ),
+                        Expanded(
+                          child: CupertinoPicker(
+                            magnification: 1.22,
+                            squeeze: 1.2,
+                            useMagnifier: true,
+                            itemExtent: 32,
+                            scrollController: FixedExtentScrollController(
+                              initialItem: 0,
+                            ),
+                            onSelectedItemChanged: (int selectedItem) {
+                              updateTime(selectedItem);
                             },
+                            children: List<Widget>.generate(
+                              List.generate(
+                                      resolveDurationLimit, (index) => index)
+                                  .length,
+                              (int index) {
+                                return Center(
+                                  child: Text(index.prefixZeroForSingleDigit()),
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 context,
