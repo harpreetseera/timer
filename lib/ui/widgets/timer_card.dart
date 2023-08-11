@@ -6,6 +6,7 @@ import 'package:ipotato_timer/repository/audio_player/audio_player_interface.dar
 import 'package:ipotato_timer/repository/database/database_interface.dart';
 import 'package:ipotato_timer/size_config.dart';
 import 'package:ipotato_timer/ui/widgets/finished_banner.dart';
+import 'package:ipotato_timer/ui/widgets/mark_complete_button.dart';
 import 'package:ipotato_timer/ui/widgets/timer_with_actions.dart';
 import 'package:ipotato_timer/utils/utility.dart';
 import 'package:mobx/mobx.dart';
@@ -38,7 +39,7 @@ class _TimerCardState extends State<TimerCard>
     completedTaskSortingDisposer = reaction(
         (p0) => widget.taskData.isDurationCompleted, (isDurationCompleted) {
       if (isDurationCompleted) {
-        sortTaskList(context);
+        context.read<TaskList>().sortTaskList();
       }
     });
 
@@ -90,27 +91,7 @@ class _TimerCardState extends State<TimerCard>
               ],
             ),
           ),
-          Observer(
-            builder: (context) => Offstage(
-              offstage: !widget.taskData.isDurationCompleted,
-              child: MaterialButton(
-                minWidth: double.maxFinite,
-                color: Theme.of(context).colorScheme.tertiaryContainer,
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(SizeConfig.genericBorderRadius),
-                ),
-                onPressed: () {
-                  checkForAudioTermination();
-                  deleteTask(context, widget.taskData);
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text("MARK COMPLETE"),
-                ),
-              ),
-            ),
-          )
+          MarkCompleteButton(taskData: widget.taskData),
         ],
       ),
     );
@@ -123,37 +104,10 @@ class _TimerCardState extends State<TimerCard>
     final audioPlayer = context.read<IAudioPlayer>();
     audioPlayer.playAudioIfAlreadyNotPlaying();
   }
-
-  void checkForAudioTermination() {
-    final completedTaskLength = context
-        .read<TaskList>()
-        .taskDataList
-        .where((element) {
-          return element.isDurationCompleted;
-        })
-        .toList()
-        .length;
-    context
-        .read<IAudioPlayer>()
-        .terminateAudio(allTasksMarkedComplete: completedTaskLength == 1);
-  }
-
-  void sortTaskList(BuildContext context) {
-    var taskList = context.read<TaskList>().taskDataList;
-    if (taskList.any((element) => element.isDurationCompleted)) {
-      context.read<TaskList>().taskDataList = sortComlpetedTasks(taskList);
-    }
-  }
 }
 
 deleteTask(BuildContext context, TaskData taskData) async {
   final db = context.read<IPotatoTimerDB>();
-  context
-      .read<TaskList>()
-      .taskDataList
-      .removeWhere((element) => element.id == taskData.id);
+  context.read<TaskList>().deleteTask(taskData);
   db.deleteTaskFromDB(taskData);
-  // TODO: find effective way of assigning new values
-  context.read<TaskList>().taskDataList =
-      List.from(context.read<TaskList>().taskDataList);
 }

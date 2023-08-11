@@ -58,6 +58,31 @@ mixin _$TaskList on TaskListBase, Store {
         .run(() => super.fetchListFromDB(context));
   }
 
+  late final _$TaskListBaseActionController =
+      ActionController(name: 'TaskListBase', context: context);
+
+  @override
+  void deleteTask(TaskData taskData) {
+    final _$actionInfo = _$TaskListBaseActionController.startAction(
+        name: 'TaskListBase.deleteTask');
+    try {
+      return super.deleteTask(taskData);
+    } finally {
+      _$TaskListBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void sortTaskList() {
+    final _$actionInfo = _$TaskListBaseActionController.startAction(
+        name: 'TaskListBase.sortTaskList');
+    try {
+      return super.sortTaskList();
+    } finally {
+      _$TaskListBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

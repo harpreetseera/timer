@@ -26,8 +26,18 @@ abstract class TaskListBase with Store, Utility {
     final db = context.read<IPotatoTimerDB>();
     isLoading = true;
     final alltasks = await db.getallTaskEntries();
-    final sortedList = sortComlpetedTasks(alltasks);
     isLoading = false;
-    taskDataList = sortedList;
+    taskDataList = sortComlpetedTasks(alltasks);
+  }
+
+  @action
+  void deleteTask(TaskData taskData) {
+    taskDataList.removeWhere((element) => element.id == taskData.id);
+    taskDataList = List.from(taskDataList);
+  }
+
+  @action
+  void sortTaskList() {
+    taskDataList = sortComlpetedTasks(taskDataList);
   }
 }

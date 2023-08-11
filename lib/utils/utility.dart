@@ -5,14 +5,14 @@ import 'package:ipotato_timer/size_config.dart';
 
 mixin Utility {
   List<TaskData> sortComlpetedTasks(List<TaskData> taskList) {
-    final list = taskList;
+    final list = List<TaskData>.from(taskList);
     for (var element in list) {
       if (element.duration <= Duration.zero) {
         list.remove(element);
         list.insertAll(0, [element]);
       }
     }
-    return List.from(list);
+    return list;
   }
 
   static (double, double) getPosition(
