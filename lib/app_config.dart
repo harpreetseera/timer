@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AppConfig {
+class AppData {
   static const String assetIconPath = "assets/icons";
   static const String addIconUrl = "$assetIconPath/add_icon.svg";
   static const String soundWaveIconUrl = "$assetIconPath/sound_wave.svg";
   static const String directionArrowUrl = "$assetIconPath/direction_arrow.svg";
   static const String audioFilePath = "assets/audios/my_life.mp3";
-
   static const String appBarTitle = "Potato Timer";
+  static const String appTitle = "iPotato Timer";
 
   static ThemeData themeData = ThemeData(
     useMaterial3: true,
@@ -39,8 +39,33 @@ class AppConfig {
     ),
   );
 
-  static const String appTitle = "iPotato Timer";
-
-  
-
+  static ThemeData darkThemeData = ThemeData(
+    useMaterial3: true,
+    colorScheme: const ColorScheme(
+      brightness: Brightness.light,
+      primary: Color(0xff5FD4FD),
+      onPrimary: Color(0xff003545),
+      primaryContainer: Color(0xff004D62),
+      onPrimaryContainer: Color(0xffB6EAFF),
+      secondary: Color(0xff8BD88D),
+      onSecondary: Color(0xff00390C),
+      secondaryContainer: Color(0xff00390C),
+      onSecondaryContainer: Color(0xffA7F5A7),
+      tertiary: Color(0xffC4C3EA),
+      onTertiary: Color(0xff2D2D4D),
+      tertiaryContainer: Color(0xff444465),
+      onTertiaryContainer: Color(0xffE1DFFF),
+      error: Color(0xffFFB4A9),
+      onError: Color(0xff680003),
+      errorContainer: Color(0xff930006),
+      onErrorContainer: Color(0xffFFDAD4),
+      background: Color(0xff191C1E),
+      onBackground: Color(0xffE1E3E5),
+      surface: Color(0xff191C1E),
+      onSurface: Color(0xffE1E3E5),
+      surfaceVariant: Color(0xff40484C),
+      onSurfaceVariant: Color(0xffC0C8CC),
+      outline: Color(0xff8A9296),
+    ),
+  );
 }
