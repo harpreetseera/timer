@@ -32,32 +32,30 @@ class _TimerCardState extends State<TimerCard>
 
   @override
   void initState() {
-    playAudioDisposer = when((_) => widget.taskData.isDurationCompleted, () {
-      playAudio();
-    });
-
-    completedTaskSortingDisposer = reaction(
-        (p0) => widget.taskData.isDurationCompleted, (isDurationCompleted) {
-      if (isDurationCompleted) {
-        context.read<TaskList>().sortTaskList();
-      }
-    });
-
+    setupDisposers();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final titleStyle = Theme.of(context)
+        .textTheme
+        .titleLarge!
+        .copyWith(color: Theme.of(context).colorScheme.secondary);
+    final descriptionStyle = Theme.of(context)
+        .textTheme
+        .bodyMedium!
+        .copyWith(color: Theme.of(context).colorScheme.primary);
     return Card(
       margin: const EdgeInsets.only(top: SizeConfig.genericSpace),
       elevation: SizeConfig.cardElevation,
 
-      /// Added this radius intentionally although the figma design didn't had this.
+      ///Added this radius intentionally although the figma design
+      /// didn't had this.
       /// Because the card looks uneven in MARK COMPLETE State
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(SizeConfig.genericBorderRadius),
-      ),
+          borderRadius: BorderRadius.circular(SizeConfig.genericBorderRadius)),
       child: Column(
         children: [
           Padding(
@@ -71,22 +69,16 @@ class _TimerCardState extends State<TimerCard>
                 Observer(
                   builder: (_) => !widget.taskData.isDurationCompleted
                       ? TimerWithActions(taskData: widget.taskData)
-                      : FinishedBanner(),
+                      : const FinishedBanner(),
                 ),
                 genericVerticalSpace,
                 Text(
                   widget.taskData.title,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(color: Theme.of(context).colorScheme.secondary),
+                  style: titleStyle,
                 ),
                 Text(
                   widget.taskData.description,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Theme.of(context).colorScheme.primary),
+                  style: descriptionStyle,
                 ),
               ],
             ),
@@ -100,14 +92,27 @@ class _TimerCardState extends State<TimerCard>
   @override
   bool get wantKeepAlive => true;
 
-  void playAudio() {
-    final audioPlayer = context.read<IAudioPlayer>();
-    audioPlayer.playAudioIfAlreadyNotPlaying();
+  void setupDisposers() {
+    playAudioDisposer = when(
+      (_) => widget.taskData.isDurationCompleted,
+      () {
+        final audioPlayer = context.read<IAudioPlayer>();
+        audioPlayer.playAudioIfAlreadyNotPlaying();
+      },
+    );
+
+    completedTaskSortingDisposer = reaction(
+      (p0) => widget.taskData.isDurationCompleted,
+      (isDurationCompleted) {
+        if (isDurationCompleted) {
+          context.read<TaskList>().sortTaskList();
+        }
+      },
+    );
   }
 }
 
 deleteTask(BuildContext context, TaskData taskData) async {
-  final db = context.read<IPotatoTimerDB>();
   context.read<TaskList>().deleteTask(taskData);
-  db.deleteTaskFromDB(taskData);
+  context.read<IPotatoTimerDB>().deleteTaskFromDB(taskData);
 }
