@@ -15,27 +15,23 @@ class TimerWithActions extends StatelessWidget {
   get genericVerticalSpace => const SizedBox(height: 8);
   @override
   Widget build(BuildContext context) {
+    final timerStyle = Theme.of(context)
+        .textTheme
+        .headlineLarge!
+        .copyWith(color: Theme.of(context).colorScheme.primary);
     return Observer(
       builder: (_) => Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
             Utility.resolveTimer(taskData.duration),
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge!
-                .copyWith(color: Theme.of(context).colorScheme.primary),
+            style: timerStyle,
           ),
           genericHorizontalSpace,
           TimerActionButton(
             iconData: taskData.isActive ? Icons.pause : Icons.play_arrow,
             action: () {
-              taskData.isActive = !taskData.isActive;
-              if (taskData.isActive) {
-                taskData.decrement();
-              }
-              taskData.registerTime = DateTime.now();
-              context.read<IPotatoTimerDB>().updateTaskInDB(taskData);
+              playPauseTimer(context);
             },
           ),
           genericHorizontalSpace,
@@ -48,5 +44,14 @@ class TimerWithActions extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void playPauseTimer(BuildContext context) {
+    taskData.isActive = !taskData.isActive;
+    if (taskData.isActive) {
+      taskData.decrement();
+    }
+    taskData.registerTime = DateTime.now();
+    context.read<IPotatoTimerDB>().updateTaskInDB(taskData);
   }
 }
