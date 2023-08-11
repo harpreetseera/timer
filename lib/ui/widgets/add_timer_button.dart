@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ipotato_timer/app_config.dart';
-
+import 'package:ipotato_timer/size_config.dart';
 import 'package:ipotato_timer/ui/widgets/add_task_overlay.dart';
 
+typedef CustomCallback = void Function();
+
 class AddTimerButton extends StatelessWidget {
-  final void Function()? callBack;
-  const AddTimerButton({super.key, this.callBack});
+  final CustomCallback? customCallBack;
+  const AddTimerButton({
+    super.key,
+    this.customCallBack,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(right: 14),
+        padding: const EdgeInsets.only(right: SizeConfig.fabPaddingRight),
         child: SizedBox(
-          width: 78,
-          height: 78,
+          width: SizeConfig.fabCustomSize,
+          height: SizeConfig.fabCustomSize,
           child: FloatingActionButton(
             onPressed: () {
-              if (callBack != null) {
-                callBack!.call();
-              }
+              callcustomCallBack();
               showAddTaskOverlay(context);
             },
             shape: const CircleBorder(),
@@ -37,5 +40,11 @@ class AddTimerButton extends StatelessWidget {
         return const AddTaskOverlay();
       },
     );
+  }
+
+  void callcustomCallBack() {
+    if (customCallBack != null) {
+      customCallBack!.call();
+    }
   }
 }

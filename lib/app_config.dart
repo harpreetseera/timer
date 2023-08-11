@@ -40,4 +40,7 @@ class AppConfig {
   );
 
   static const String appTitle = "iPotato Timer";
+
+  
+
 }

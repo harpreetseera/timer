@@ -11,10 +11,12 @@ import 'ui/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MultiProvider(
-    providers: getProviders(),
-    child: const MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: getProviders(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
