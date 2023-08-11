@@ -10,21 +10,24 @@ part 'task_list.g.dart';
 class TaskList = TaskListBase with _$TaskList;
 
 abstract class TaskListBase with Store, Utility {
-  TaskListBase(this.taskDataList, {this.loading = false});
+  TaskListBase(this.taskDataList, {this.isLoading = false});
 
   @observable
   List<TaskData> taskDataList;
 
   @observable
-  bool loading;
+  bool isLoading;
+
+  @computed
+  bool get tasksEmptyAfterLoading => taskDataList.isEmpty && !isLoading;
 
   @action
   Future<void> fetchListFromDB(BuildContext context) async {
     final db = context.read<IPotatoTimerDB>();
-    loading = true;
+    isLoading = true;
     final alltasks = await db.getallTaskEntries();
     final sortedList = sortComlpetedTasks(alltasks);
-    loading = false;
+    isLoading = false;
     taskDataList = sortedList;
   }
 }

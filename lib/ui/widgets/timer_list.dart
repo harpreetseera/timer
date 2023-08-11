@@ -27,7 +27,7 @@ class _TimerListState extends State<TimerList> {
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
       child: Observer(
         builder: (_) {
-          if (taskList.loading) {
+          if (taskList.isLoading) {
             return const Center(child: CircularProgressIndicator());
           } else {
             final list = taskList.taskDataList;
