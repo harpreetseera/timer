@@ -36,11 +36,8 @@ List<Provider> getProviders() {
   final emptyTaskList = TaskList([]);
   final providerList = [
     Provider<IPotatoTimerDB>(
-      create: (_) => PotatoTimerDB(taskDatabase: TaskDatabase()),
-    ),
-    Provider(
-      create: (context) => emptyTaskList,
-    ),
+        create: (_) => PotatoTimerDB(taskDatabase: TaskDatabase())),
+    Provider(create: (context) => emptyTaskList),
     Provider<IAudioPlayer>(
       create: (_) => AudioPlayer(audioPlayer: AssetsAudioPlayer.newPlayer()),
     ),
