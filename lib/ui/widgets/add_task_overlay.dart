@@ -49,7 +49,6 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                         isActive: true,
                         registerTime: DateTime.now(),
                       );
-                      // context.read<TaskList>().taskDataList.add(taskData);
                       taskData.decrement();
                       context.read<TaskList>().taskDataList =
                           context.read<TaskList>().taskDataList + [taskData];

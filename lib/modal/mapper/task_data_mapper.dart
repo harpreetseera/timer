@@ -9,14 +9,20 @@ class TaskDataMapper {
   List<TaskData> mappedTaskData() {
     return taskTableData.map(
       (data) {
+        const millisecondsInASecond = 1000;
+        final regiteredTimeInseconds =
+            (data.registerTime / millisecondsInASecond).floor();
+        final currentTimeInSeconds =
+            (DateTime.now().millisecondsSinceEpoch / millisecondsInASecond)
+                .floor();
         final taskData = TaskData(
           id: data.id,
           title: data.title,
           description: data.description,
           duration: Duration(
               seconds: data.isActive
-                  ? (((data.registerTime / 1000).floor() + data.duration) -
-                      (DateTime.now().millisecondsSinceEpoch / 1000).floor())
+                  ? ((regiteredTimeInseconds + data.duration) -
+                      currentTimeInSeconds)
                   : data.duration),
           isActive: data.isActive,
           registerTime: DateTime.fromMillisecondsSinceEpoch(data.registerTime),
