@@ -5,6 +5,7 @@ import 'package:ipotato_timer/modal/task_duration.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/extension/int_extension.dart';
 import 'package:ipotato_timer/size_config.dart';
+import 'package:ipotato_timer/ui/widgets/double_dot.dart';
 
 enum DurationType { hour, minutes, seconds }
 
@@ -50,28 +51,36 @@ class DurationSelector extends StatelessWidget {
     }
   }
 
+  get showDoubleDot => !(durationType == DurationType.seconds);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        InkWell(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Observer(
-                  builder: (_) {
-                    return Text(
-                      timeType.prefixZeroForSingleDigit(),
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    );
-                  },
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            InkWell(
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Observer(
+                      builder: (_) {
+                        return Text(
+                          timeType.prefixZeroForSingleDigit(),
+                          style: Theme.of(context).textTheme.titleLarge,
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            onTap: () {
-              showDurationPickerDialog(context);
-            }),
+                onTap: () {
+                  showDurationPickerDialog(context);
+                }),
+            if (showDoubleDot) const DoubleDot(),
+          ],
+        ),
         Padding(
           padding: const EdgeInsets.only(left: 12.0),
           child: Text(
@@ -144,7 +153,10 @@ class DurationSelector extends StatelessWidget {
                         .length,
                     (int index) {
                       return Center(
-                        child: Text(index.prefixZeroForSingleDigit()),
+                        child: Text(
+                          index.prefixZeroForSingleDigit(),
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
                       );
                     },
                   ),

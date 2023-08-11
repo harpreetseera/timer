@@ -18,6 +18,7 @@ class MarkCompleteButton extends StatelessWidget {
         offstage: !taskData.isDurationCompleted,
         child: MaterialButton(
           minWidth: double.maxFinite,
+          elevation: 0,
           color: Theme.of(context).colorScheme.tertiaryContainer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(SizeConfig.genericBorderRadius),
@@ -26,9 +27,12 @@ class MarkCompleteButton extends StatelessWidget {
             checkForAudioTermination(context);
             deleteTask(context, taskData);
           },
-          child: const Padding(
-            padding: EdgeInsets.all(12.0),
-            child: Text("MARK COMPLETE"),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+              "MARK COMPLETE",
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
           ),
         ),
       ),

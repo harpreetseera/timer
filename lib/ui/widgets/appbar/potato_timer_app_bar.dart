@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ipotato_timer/app_config.dart';
+import 'package:ipotato_timer/app_data.dart';
 import 'package:ipotato_timer/size_config.dart';
 
 class PotatoTimerAppBar extends StatelessWidget implements PreferredSizeWidget {

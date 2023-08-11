@@ -1,6 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:ipotato_timer/app_config.dart';
+import 'package:ipotato_timer/app_data.dart';
+
 import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/repository/audio_player/audio_player.dart';
 import 'package:ipotato_timer/repository/audio_player/audio_player_interface.dart';
@@ -24,9 +25,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: AppConfig.appTitle,
+      title: AppData.appTitle,
       debugShowCheckedModeBanner: false,
-      theme: AppConfig.themeData,
+      theme: AppData.themeData,
+      darkTheme: AppData.darkThemeData,
       home: const HomeScreen(),
     );
   }

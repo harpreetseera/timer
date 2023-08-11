@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CustomDialog {
   static void showDialog(BuildContext context, Widget child) {
@@ -10,7 +11,7 @@ class CustomDialog {
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        color: CupertinoColors.systemBackground.resolveFrom(context),
+        color: Theme.of(context).colorScheme.background,
         child: SafeArea(
           top: false,
           child: child,

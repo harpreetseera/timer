@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/modal/task_duration.dart';
 import 'package:ipotato_timer/size_config.dart';
-import 'package:ipotato_timer/ui/widgets/add_task_button.dart';
+import 'package:ipotato_timer/ui/widgets/button/add_task_button.dart';
 import 'package:ipotato_timer/ui/widgets/custom_text_field.dart';
 import 'package:ipotato_timer/ui/widgets/duration_selector.dart';
 
@@ -17,8 +17,6 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
   final formKey = GlobalKey<FormState>();
   final taskDuration = TaskDuration(00, 00, 00);
 
-  get doubleDotText => const Text(":");
-
   @override
   void initState() {
     titleController = TextEditingController();
@@ -29,7 +27,10 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add Task'),
+      title: Text(
+        'Add Task',
+        style: Theme.of(context).textTheme.headlineLarge,
+      ),
       buttonPadding: EdgeInsets.zero,
       actionsPadding: const EdgeInsets.all(SizeConfig.zero),
       clipBehavior: Clip.hardEdge,
@@ -60,7 +61,7 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                     controller: descriptionController,
                     label: "Description",
                     hint: "e.g. john@gmail.com",
-                    noOfLines:4,
+                    noOfLines: 4,
                   ),
                   const SizedBox(height: 24),
                   Text(
@@ -74,12 +75,10 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                         durationType: DurationType.hour,
                         taskDuration: taskDuration,
                       ),
-                      doubleDotText,
                       DurationSelector(
                         durationType: DurationType.minutes,
                         taskDuration: taskDuration,
                       ),
-                      doubleDotText,
                       DurationSelector(
                         durationType: DurationType.seconds,
                         taskDuration: taskDuration,

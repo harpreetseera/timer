@@ -9,7 +9,7 @@ class SizeConfig {
 
   static const double fabCustomSize = 78;
 
-  static const double customHeightAboveFab = 36;
+  static const double customHeightAboveFab = 42;
 
   static const double zero = 0;
 

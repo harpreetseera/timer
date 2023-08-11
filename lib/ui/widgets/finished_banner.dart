@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ipotato_timer/app_config.dart';
+import 'package:ipotato_timer/app_data.dart';
 
 class FinishedBanner extends StatelessWidget {
   const FinishedBanner({super.key});

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
-import 'package:ipotato_timer/ui/widgets/add_timer_button.dart';
-import 'package:ipotato_timer/ui/widgets/discovery_overlay.dart';
-import 'package:ipotato_timer/ui/widgets/potato_timer_app_bar.dart';
+import 'package:ipotato_timer/ui/widgets/appbar/potato_timer_app_bar.dart';
+import 'package:ipotato_timer/ui/widgets/button/add_timer_button_fab.dart';
+import 'package:ipotato_timer/ui/widgets/overlay/discovery_overlay.dart';
 import 'package:ipotato_timer/ui/widgets/timer_list.dart';
 import 'package:ipotato_timer/utils/utility.dart';
 import 'package:mobx/mobx.dart';
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> with Utility {
     return Scaffold(
       appBar: const PotatoTimerAppBar(),
       body: const TimerList(),
-      floatingActionButton: AddTimerButton(
+      floatingActionButton: AddTimerButtonFAB(
         key: globalKey,
         customCallBack: removeOverlayIfPresent,
       ),

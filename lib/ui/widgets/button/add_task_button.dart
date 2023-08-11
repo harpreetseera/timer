@@ -45,9 +45,12 @@ class AddTaskButton extends StatelessWidget {
                 }
               }
             : null,
-        child: const Padding(
-          padding: EdgeInsets.all(SizeConfig.genericPadding),
-          child: Text("Add Task"),
+        child: Padding(
+          padding: const EdgeInsets.all(SizeConfig.genericPadding),
+          child: Text(
+            "Add Task",
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
         ),
       ),
     );
