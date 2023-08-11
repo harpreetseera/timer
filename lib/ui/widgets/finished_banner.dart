@@ -5,6 +5,8 @@ import 'package:ipotato_timer/app_config.dart';
 class FinishedBanner extends StatelessWidget {
   const FinishedBanner({super.key});
 
+  get sounWaveIcon => SvgPicture.asset(AppData.soundWaveIconUrl);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,7 +14,7 @@ class FinishedBanner extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SvgPicture.asset(AppConfig.soundWaveIconUrl),
+          sounWaveIcon,
           Text(
             "FINISHED",
             style: Theme.of(context)
@@ -20,7 +22,7 @@ class FinishedBanner extends StatelessWidget {
                 .headlineLarge!
                 .copyWith(color: Theme.of(context).colorScheme.primary),
           ),
-          SvgPicture.asset(AppConfig.soundWaveIconUrl),
+          sounWaveIcon,
         ],
       ),
     );

@@ -18,7 +18,7 @@ class DiscoveryOverlay extends StatelessWidget {
             "No timers active.\nPress here to start a new one",
             style: Theme.of(context).textTheme.bodyMedium,
           ),
-          SvgPicture.asset(AppConfig.directionArrowUrl),
+          SvgPicture.asset(AppData.directionArrowUrl),
         ],
       ),
     );

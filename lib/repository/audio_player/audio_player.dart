@@ -10,7 +10,7 @@ class AudioPlayer implements IAudioPlayer {
   void playAudioIfAlreadyNotPlaying() {
     if (!audioPlayer.isPlaying.value) {
       audioPlayer.open(
-        Audio(AppConfig.audioFilePath),
+        Audio(AppData.audioFilePath),
         showNotification: true,
       );
     }

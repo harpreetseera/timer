@@ -27,7 +27,7 @@ class AddTimerButton extends StatelessWidget {
             },
             shape: const CircleBorder(),
             child: SvgPicture.asset(
-              AppConfig.addIconUrl,
+              AppData.addIconUrl,
             ),
           ),
         ));

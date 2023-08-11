@@ -19,7 +19,7 @@ class PotatoTimerAppBar extends StatelessWidget implements PreferredSizeWidget {
       shadowColor: Theme.of(context).colorScheme.onSurface,
       bottom: AppBar(
         title: Text(
-          AppConfig.appBarTitle,
+          AppData.appBarTitle,
           style: appBarStyle,
         ),
         backgroundColor: appBarBgColor,
