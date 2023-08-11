@@ -84,6 +84,17 @@ mixin _$TaskList on TaskListBase, Store {
   }
 
   @override
+  void addTask(TaskData taskData) {
+    final _$actionInfo = _$TaskListBaseActionController.startAction(
+        name: 'TaskListBase.addTask');
+    try {
+      return super.addTask(taskData);
+    } finally {
+      _$TaskListBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 taskDataList: ${taskDataList},

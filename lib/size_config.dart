@@ -26,4 +26,6 @@ class SizeConfig {
   static const double largeIconSize = 36;
 
   static const double genericIconSize = 24;
+
+  static const double genericPadding = 16;
 }

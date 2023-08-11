@@ -41,6 +41,11 @@ abstract class TaskListBase with Store, Utility {
     taskDataList = sortComlpetedTasks(taskDataList);
   }
 
+  @action
+  void addTask(TaskData taskData) {
+    taskDataList = taskDataList + [taskData];
+  }
+
   int completedTaskCount() {
     return taskDataList
         .where((element) {

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:ipotato_timer/modal/task_data.dart';
-import 'package:ipotato_timer/modal/task_list.dart';
-import 'package:ipotato_timer/repository/database/database_interface.dart';
+import 'package:ipotato_timer/size_config.dart';
+import 'package:ipotato_timer/ui/widgets/add_task_button.dart';
+import 'package:ipotato_timer/ui/widgets/custom_text_field.dart';
 import 'package:ipotato_timer/ui/widgets/duration_selector.dart';
-import 'package:provider/provider.dart';
 
 class AddTaskOverlay extends StatefulWidget {
   const AddTaskOverlay({super.key});
@@ -15,6 +13,11 @@ class AddTaskOverlay extends StatefulWidget {
 
 class _AddTaskOverlayState extends State<AddTaskOverlay> {
   late TextEditingController titleController, descriptionController;
+  final formKey = GlobalKey<FormState>();
+  final taskDuration = TaskDuration(00, 00, 00);
+
+  get doubleDotText => const Text(":");
+
   @override
   void initState() {
     titleController = TextEditingController();
@@ -24,45 +27,18 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-    final taskDuration = TaskDuration(00, 00, 00);
-
     return AlertDialog(
       title: const Text('Add Task'),
       buttonPadding: EdgeInsets.zero,
-      actionsPadding: const EdgeInsets.all(0),
+      actionsPadding: const EdgeInsets.all(SizeConfig.zero),
       clipBehavior: Clip.hardEdge,
       actions: [
-        Observer(
-          builder: (context) => MaterialButton(
-            minWidth: double.maxFinite,
-            color: Theme.of(context).colorScheme.tertiaryContainer,
-            onPressed: taskDuration.isValidDuration
-                ? () async {
-                    if (formKey.currentState!.validate()) {
-                      final taskData = TaskData(
-                        id: titleController.text.trim() +
-                            DateTime.now().millisecondsSinceEpoch.toString(),
-                        description: descriptionController.text.trim(),
-                        duration: taskDuration.duration,
-                        title: titleController.text.trim(),
-                        isActive: true,
-                        registerTime: DateTime.now(),
-                      );
-                      taskData.decrement();
-                      context.read<TaskList>().taskDataList =
-                          context.read<TaskList>().taskDataList + [taskData];
-                      context.read<IPotatoTimerDB>().addTaskInDB(taskData);
-                      Navigator.of(context).pop();
-                    }
-                  }
-                : null,
-            child: const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text("Add Task"),
-            ),
-          ),
-        )
+        AddTaskButton(
+          formKey: formKey,
+          taskDuration: taskDuration,
+          descriptionController: descriptionController,
+          titleController: titleController,
+        ),
       ],
       content: SingleChildScrollView(
         child: Column(
@@ -73,61 +49,18 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextFormField(
+                  CustomTextField(
                     controller: titleController,
-                    decoration: InputDecoration(
-                      labelText: "Title",
-                      hintText: "Superdesigner",
-                      hintStyle: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(
-                              color: Theme.of(context).colorScheme.outline),
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                      ),
-                    ),
-                    validator: (val) {
-                      if (val == null || val.isEmpty) {
-                        return "required";
-                      } else {
-                        return null;
-                      }
-                    },
+                    label: "Title",
+                    hint: "Superdesigner",
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  TextFormField(
+                  const SizedBox(height: 24),
+                  CustomTextField(
                     controller: descriptionController,
-                    maxLines: 3,
-                    validator: (val) {
-                      if (val == null || val.isEmpty) {
-                        return "required";
-                      } else {
-                        return null;
-                      }
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Description",
-                      hintText: "e.g. john@gmail.com",
-                      hintStyle: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(
-                              color: Theme.of(context).colorScheme.outline),
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                      ),
-                    ),
+                    label: "Description",
+                    hint: "e.g. john@gmail.com",
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  const SizedBox(height: 24),
                   Text(
                     "Duration",
                     style: Theme.of(context).textTheme.labelMedium,
@@ -139,12 +72,12 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                         durationType: DurationType.hour,
                         taskDuration: taskDuration,
                       ),
-                      Text(":"),
+                      doubleDotText,
                       DurationSelector(
                         durationType: DurationType.minutes,
                         taskDuration: taskDuration,
                       ),
-                      Text(":"),
+                      doubleDotText,
                       DurationSelector(
                         durationType: DurationType.seconds,
                         taskDuration: taskDuration,
@@ -157,14 +90,6 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
           ],
         ),
       ),
-    );
-  }
-
-  Duration resolveDuration(int hours, int minutes, int seconds) {
-    return Duration(
-      hours: hours,
-      minutes: minutes,
-      seconds: seconds,
     );
   }
 }
