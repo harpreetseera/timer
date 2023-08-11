@@ -9,6 +9,14 @@ part of 'task_data.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$TaskData on TaskBase, Store {
+  Computed<bool>? _$isDurationCompletedComputed;
+
+  @override
+  bool get isDurationCompleted => (_$isDurationCompletedComputed ??=
+          Computed<bool>(() => super.isDurationCompleted,
+              name: 'TaskBase.isDurationCompleted'))
+      .value;
+
   late final _$durationAtom = Atom(name: 'TaskBase.duration', context: context);
 
   @override
@@ -51,7 +59,8 @@ mixin _$TaskData on TaskBase, Store {
   String toString() {
     return '''
 duration: ${duration},
-isActive: ${isActive}
+isActive: ${isActive},
+isDurationCompleted: ${isDurationCompleted}
     ''';
   }
 }

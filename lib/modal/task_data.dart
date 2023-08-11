@@ -38,6 +38,9 @@ abstract class TaskBase with Store {
 
   DateTime registerTime;
 
+  @computed
+  bool get isDurationCompleted => duration <= Duration.zero;
+
   @action
   Future<void> decrement() async {
     await Future.delayed(const Duration(seconds: 1));

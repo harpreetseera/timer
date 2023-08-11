@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipotato_timer/extension/int_extension.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/size_config.dart';
 
@@ -24,5 +25,21 @@ mixin Utility {
     final rightPosition =
         (renderBox.size.width / 2) - (SizeConfig.fabPaddingRight);
     return (topPosition, rightPosition);
+  }
+
+  static String resolveTimer(Duration duration) {
+    final durationInSeconds = duration.inSeconds;
+    const secondsInAnHour = 3600;
+    const secondsInAMinute = 60;
+    final hoursOfDuration = duration.inHours.prefixZeroForSingleDigit();
+    final minutesofDuration =
+        ((durationInSeconds % secondsInAnHour) / secondsInAMinute)
+            .floor()
+            .prefixZeroForSingleDigit();
+    final secondsofDuration =
+        ((durationInSeconds % secondsInAnHour) % secondsInAMinute)
+            .floor()
+            .prefixZeroForSingleDigit();
+    return '$hoursOfDuration:$minutesofDuration:$secondsofDuration';
   }
 }

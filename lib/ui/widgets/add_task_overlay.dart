@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/repository/database/database_interface.dart';
-import 'package:ipotato_timer/repository/database/potato_timer_db.dart';
 import 'package:ipotato_timer/ui/widgets/duration_selector.dart';
 import 'package:provider/provider.dart';
 
