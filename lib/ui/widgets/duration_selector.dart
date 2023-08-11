@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ipotato_timer/dialog/dialog.dart';
 import 'package:ipotato_timer/modal/task_duration.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/extension/int_extension.dart';
-
+import 'package:ipotato_timer/size_config.dart';
 
 enum DurationType { hour, minutes, seconds }
 
@@ -57,83 +58,19 @@ class DurationSelector extends StatelessWidget {
         InkWell(
             child: Card(
               child: Padding(
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Observer(
                   builder: (_) {
                     return Text(
                       timeType.prefixZeroForSingleDigit(),
-                      style: const TextStyle(fontSize: 20),
+                      style: Theme.of(context).textTheme.bodyLarge,
                     );
                   },
                 ),
               ),
             ),
             onTap: () {
-              _showDialog(
-                Material(
-                  child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Select ${durationType.name} duration",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary),
-                            ),
-                            const Spacer(),
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                icon: Icon(
-                                  Icons.done,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ))
-                          ],
-                        ),
-                        Divider(
-                          color:
-                              Theme.of(context).colorScheme.tertiaryContainer,
-                        ),
-                        Expanded(
-                          child: CupertinoPicker(
-                            magnification: 1.22,
-                            squeeze: 1.2,
-                            useMagnifier: true,
-                            itemExtent: 32,
-                            scrollController: FixedExtentScrollController(
-                              initialItem: timeType,
-                            ),
-                            onSelectedItemChanged: (int selectedItem) {
-                              updateTime(selectedItem);
-                            },
-                            children: List<Widget>.generate(
-                              List.generate(
-                                      resolveDurationLimit, (index) => index)
-                                  .length,
-                              (int index) {
-                                return Center(
-                                  child: Text(index.prefixZeroForSingleDigit()),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                context,
-              );
+              showDurationPickerDialog(context);
             }),
         Padding(
           padding: const EdgeInsets.only(left: 12.0),
@@ -146,24 +83,6 @@ class DurationSelector extends StatelessWidget {
     );
   }
 
-  void _showDialog(Widget child, BuildContext context) {
-    showCupertinoModalPopup<void>(
-      context: context,
-      builder: (BuildContext context) => Container(
-        height: MediaQuery.of(context).size.height * 0.4,
-        padding: const EdgeInsets.only(top: 6.0),
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        color: CupertinoColors.systemBackground.resolveFrom(context),
-        child: SafeArea(
-          top: false,
-          child: child,
-        ),
-      ),
-    );
-  }
-
   void updateTime(int selectedItem) {
     switch (durationType) {
       case DurationType.hour:
@@ -173,5 +92,68 @@ class DurationSelector extends StatelessWidget {
       case DurationType.seconds:
         taskDuration.seconds = selectedItem;
     }
+  }
+
+  void showDurationPickerDialog(BuildContext context) {
+    CustomDialog.showDialog(
+      context,
+      Material(
+        child: Padding(
+          padding: const EdgeInsets.all(SizeConfig.genericPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "Select ${durationType.name} duration",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(color: Theme.of(context).colorScheme.primary),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(
+                      Icons.done,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  )
+                ],
+              ),
+              Divider(
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+              ),
+              Expanded(
+                child: CupertinoPicker(
+                  magnification: 1.22,
+                  squeeze: 1.2,
+                  useMagnifier: true,
+                  itemExtent: 32,
+                  scrollController: FixedExtentScrollController(
+                    initialItem: timeType,
+                  ),
+                  onSelectedItemChanged: (int selectedItem) {
+                    updateTime(selectedItem);
+                  },
+                  children: List<Widget>.generate(
+                    List.generate(resolveDurationLimit, (index) => index)
+                        .length,
+                    (int index) {
+                      return Center(
+                        child: Text(index.prefixZeroForSingleDigit()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
