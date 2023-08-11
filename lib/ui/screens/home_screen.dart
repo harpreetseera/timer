@@ -68,13 +68,15 @@ class _HomeScreenState extends State<HomeScreen> with Utility {
   }
 
   void setupOverLayDisposerReaction() {
-    overlayShowcaseDisposer = reaction((_) => taskList.tasksEmptyAfterLoading,
-        (tasksEmptyAfterLoading) {
-      if (tasksEmptyAfterLoading) {
-        Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry);
-      } else {
-        removeOverlayIfPresent();
-      }
-    });
+    overlayShowcaseDisposer = reaction(
+      (_) => taskList.tasksEmptyAfterLoading,
+      (tasksEmptyAfterLoading) {
+        if (tasksEmptyAfterLoading) {
+          Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry);
+        } else {
+          removeOverlayIfPresent();
+        }
+      },
+    );
   }
 }
