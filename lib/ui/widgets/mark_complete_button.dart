@@ -36,16 +36,9 @@ class MarkCompleteButton extends StatelessWidget {
   }
 
   void checkForAudioTermination(BuildContext context) {
-    final completedTaskLength = context
-        .read<TaskList>()
-        .taskDataList
-        .where((element) {
-          return element.isDurationCompleted;
-        })
-        .toList()
-        .length;
+    final completedTaskLength = context.read<TaskList>().completedTaskCount();
     context
         .read<IAudioPlayer>()
-        .terminateAudio(allTasksMarkedComplete: completedTaskLength == 1);
+        .terminateAudio(completeTaskCount: completedTaskLength);
   }
 }

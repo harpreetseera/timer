@@ -40,4 +40,13 @@ abstract class TaskListBase with Store, Utility {
   void sortTaskList() {
     taskDataList = sortComlpetedTasks(taskDataList);
   }
+
+  int completedTaskCount() {
+    return taskDataList
+        .where((element) {
+          return element.isDurationCompleted;
+        })
+        .toList()
+        .length;
+  }
 }

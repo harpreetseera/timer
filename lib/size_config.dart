@@ -20,6 +20,7 @@ class SizeConfig {
   static const double cardElevation = 4;
 
   static const double genericBorderRadius = 30;
+
   static const double smallBorderRadius = 8;
 
   static const double largeIconSize = 36;

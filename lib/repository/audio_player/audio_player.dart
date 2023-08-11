@@ -17,8 +17,8 @@ class AudioPlayer implements IAudioPlayer {
   }
 
   @override
-  void terminateAudio({required bool allTasksMarkedComplete}) {
-    if (allTasksMarkedComplete) {
+  void terminateAudio({required int completeTaskCount}) {
+    if (completeTaskCount == 1) {
       if (audioPlayer.isPlaying.hasValue && audioPlayer.isPlaying.value) {
         audioPlayer.stop();
       }
