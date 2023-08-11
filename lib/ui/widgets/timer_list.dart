@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
-import 'package:ipotato_timer/repository/database/task_database.dart';
+import 'package:ipotato_timer/size_config.dart';
 import 'package:ipotato_timer/ui/widgets/timer_card.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +14,7 @@ class TimerList extends StatefulWidget {
 
 class _TimerListState extends State<TimerList> {
   late TaskList taskList;
+
   @override
   void initState() {
     taskList = context.read<TaskList>();
@@ -25,10 +25,13 @@ class _TimerListState extends State<TimerList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: SizeConfig.timerListHorizontalPadding,
+        vertical: SizeConfig.zero,
+      ),
       child: Observer(
         builder: (_) {
-          if (taskList.loading) {
+          if (taskList.isLoading) {
             return const Center(child: CircularProgressIndicator());
           } else {
             final list = taskList.taskDataList;
@@ -41,16 +44,4 @@ class _TimerListState extends State<TimerList> {
       ),
     );
   }
-
-  // Future<void> fetchTimerListFromDB() async {
-  //   final db = context.read<TaskDatabase>();
-  //   final alltasks = await db.select(db.taskTable).get();
-  //   taskList.taskDataList = alltasks
-  //       .map((e) => TaskData(
-  //             title: e.title,
-  //             description: e.description,
-  //             duration: Duration(seconds: e.duration),
-  //           ))
-  //       .toList();
-  // }
 }

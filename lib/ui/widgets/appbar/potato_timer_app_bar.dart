@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ipotato_timer/app_config.dart';
+import 'package:ipotato_timer/app_data.dart';
+import 'package:ipotato_timer/size_config.dart';
 
 class PotatoTimerAppBar extends StatelessWidget implements PreferredSizeWidget {
   const PotatoTimerAppBar({super.key});
@@ -14,11 +15,11 @@ class PotatoTimerAppBar extends StatelessWidget implements PreferredSizeWidget {
     final appBarBgColor = Theme.of(context).colorScheme.secondary;
     return AppBar(
       backgroundColor: appBarBgColor,
-      elevation: 4,
-      shadowColor: Colors.black,
+      elevation: SizeConfig.appBarElevation,
+      shadowColor: Theme.of(context).colorScheme.onSurface,
       bottom: AppBar(
         title: Text(
-          AppConfig.appBarTitle,
+          AppData.appBarTitle,
           style: appBarStyle,
         ),
         backgroundColor: appBarBgColor,
@@ -28,5 +29,5 @@ class PotatoTimerAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(84);
+  Size get preferredSize => const Size.fromHeight(SizeConfig.appBarHeight);
 }

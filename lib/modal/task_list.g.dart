@@ -9,6 +9,14 @@ part of 'task_list.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$TaskList on TaskListBase, Store {
+  Computed<bool>? _$tasksEmptyAfterLoadingComputed;
+
+  @override
+  bool get tasksEmptyAfterLoading => (_$tasksEmptyAfterLoadingComputed ??=
+          Computed<bool>(() => super.tasksEmptyAfterLoading,
+              name: 'TaskListBase.tasksEmptyAfterLoading'))
+      .value;
+
   late final _$taskDataListAtom =
       Atom(name: 'TaskListBase.taskDataList', context: context);
 
@@ -25,19 +33,19 @@ mixin _$TaskList on TaskListBase, Store {
     });
   }
 
-  late final _$loadingAtom =
-      Atom(name: 'TaskListBase.loading', context: context);
+  late final _$isLoadingAtom =
+      Atom(name: 'TaskListBase.isLoading', context: context);
 
   @override
-  bool get loading {
-    _$loadingAtom.reportRead();
-    return super.loading;
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
   }
 
   @override
-  set loading(bool value) {
-    _$loadingAtom.reportWrite(value, super.loading, () {
-      super.loading = value;
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
     });
   }
 
@@ -50,11 +58,48 @@ mixin _$TaskList on TaskListBase, Store {
         .run(() => super.fetchListFromDB(context));
   }
 
+  late final _$TaskListBaseActionController =
+      ActionController(name: 'TaskListBase', context: context);
+
+  @override
+  void deleteTask(TaskData taskData) {
+    final _$actionInfo = _$TaskListBaseActionController.startAction(
+        name: 'TaskListBase.deleteTask');
+    try {
+      return super.deleteTask(taskData);
+    } finally {
+      _$TaskListBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void sortTaskList() {
+    final _$actionInfo = _$TaskListBaseActionController.startAction(
+        name: 'TaskListBase.sortTaskList');
+    try {
+      return super.sortTaskList();
+    } finally {
+      _$TaskListBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void addTask(TaskData taskData) {
+    final _$actionInfo = _$TaskListBaseActionController.startAction(
+        name: 'TaskListBase.addTask');
+    try {
+      return super.addTask(taskData);
+    } finally {
+      _$TaskListBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 taskDataList: ${taskDataList},
-loading: ${loading}
+isLoading: ${isLoading},
+tasksEmptyAfterLoading: ${tasksEmptyAfterLoading}
     ''';
   }
 }
