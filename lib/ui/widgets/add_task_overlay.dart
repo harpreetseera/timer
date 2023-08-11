@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipotato_timer/modal/task_duration.dart';
 import 'package:ipotato_timer/size_config.dart';
 import 'package:ipotato_timer/ui/widgets/add_task_button.dart';
 import 'package:ipotato_timer/ui/widgets/custom_text_field.dart';
@@ -59,6 +60,7 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                     controller: descriptionController,
                     label: "Description",
                     hint: "e.g. john@gmail.com",
+                    noOfLines:4,
                   ),
                   const SizedBox(height: 24),
                   Text(

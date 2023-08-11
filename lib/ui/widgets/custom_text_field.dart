@@ -5,11 +5,14 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label, hint;
 
+  final int noOfLines;
+
   const CustomTextField({
     super.key,
     required this.controller,
     required this.label,
     required this.hint,
+    this.noOfLines = 1,
   });
 
   get validatorFunction => (val) {
@@ -24,6 +27,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      maxLines: noOfLines,
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
