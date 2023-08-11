@@ -5,10 +5,16 @@ import 'package:ipotato_timer/app_data.dart';
 class FinishedBanner extends StatelessWidget {
   const FinishedBanner({super.key});
 
-  get sounWaveIcon => SvgPicture.asset(AppData.soundWaveIconUrl);
-
   @override
   Widget build(BuildContext context) {
+    final sounWaveIcon = SvgPicture.asset(
+      AppData.soundWaveIconUrl,
+      colorFilter: ColorFilter.mode(
+        Theme.of(context).colorScheme.primary,
+        BlendMode.srcIn,
+      ),
+    );
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
