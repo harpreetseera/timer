@@ -1,39 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
+import 'package:ipotato_timer/modal/task_duration.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/extension/int_extension.dart';
-part 'duration_selector.g.dart';
 
-class TaskDuration = TaskDurationBase with _$TaskDuration;
-
-abstract class TaskDurationBase with Store {
-  TaskDurationBase(
-    this.hours,
-    this.minutes,
-    this.seconds,
-  );
-
-  static int get intialTimeValue => 00;
-  @observable
-  int hours = intialTimeValue;
-  @observable
-  int minutes = intialTimeValue;
-  @observable
-  int seconds = intialTimeValue;
-
-  @computed
-  Duration get duration => Duration(
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds,
-      );
-
-  @computed
-  bool get isValidDuration {
-    return (hours > 0 || minutes > 0 || seconds > 0);
-  }
-}
 
 enum DurationType { hour, minutes, seconds }
 

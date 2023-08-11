@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'duration_selector.dart';
+part of 'task_duration.dart';
 
 // **************************************************************************
 // StoreGenerator
