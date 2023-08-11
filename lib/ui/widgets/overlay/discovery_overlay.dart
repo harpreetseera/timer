@@ -17,7 +17,7 @@ class DiscoveryOverlay extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 16),
             child: Text(
-              "No timers active.\nPress here to start a new one",
+              AppData.discoveryOverlayText,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),

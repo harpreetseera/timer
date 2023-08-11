@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:ipotato_timer/app_data.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/repository/audio_player/audio_player_interface.dart';
@@ -30,7 +31,7 @@ class MarkCompleteButton extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              "MARK COMPLETE",
+              AppData.markCompleteText,
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),

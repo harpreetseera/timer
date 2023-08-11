@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipotato_timer/app_data.dart';
 import 'package:ipotato_timer/size_config.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -17,7 +18,7 @@ class CustomTextField extends StatelessWidget {
 
   get validatorFunction => (val) {
         if (val == null || val.isEmpty) {
-          return "required";
+          return AppData.requiredText;
         } else {
           return null;
         }

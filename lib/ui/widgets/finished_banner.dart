@@ -22,7 +22,7 @@ class FinishedBanner extends StatelessWidget {
         children: [
           sounWaveIcon,
           Text(
-            "FINISHED",
+            AppData.finishedText,
             style: Theme.of(context)
                 .textTheme
                 .headlineLarge!

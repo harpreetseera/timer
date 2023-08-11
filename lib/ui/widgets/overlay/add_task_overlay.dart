@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipotato_timer/app_data.dart';
 import 'package:ipotato_timer/modal/task_duration.dart';
 import 'package:ipotato_timer/size_config.dart';
 import 'package:ipotato_timer/ui/widgets/button/add_task_button.dart';
@@ -28,7 +29,7 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        'Add Task',
+        AppData.addtasktext,
         style: Theme.of(context).textTheme.headlineLarge,
       ),
       buttonPadding: EdgeInsets.zero,
@@ -53,19 +54,19 @@ class _AddTaskOverlayState extends State<AddTaskOverlay> {
                 children: [
                   CustomTextField(
                     controller: titleController,
-                    label: "Title",
-                    hint: "Superdesigner",
+                    label: AppData.labelText,
+                    hint: AppData.titleHintText,
                   ),
                   const SizedBox(height: 24),
                   CustomTextField(
                     controller: descriptionController,
-                    label: "Description",
-                    hint: "e.g. john@gmail.com",
+                    label: AppData.descriptionText,
+                    hint: AppData.descriptionHintText,
                     noOfLines: 4,
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    "Duration",
+                    AppData.durationText,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                   Row(

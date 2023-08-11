@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ipotato_timer/app_data.dart';
 import 'package:ipotato_timer/dialog/dialog.dart';
 import 'package:ipotato_timer/modal/task_duration.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ipotato_timer/extension/int_extension.dart';
 import 'package:ipotato_timer/size_config.dart';
-import 'package:ipotato_timer/ui/widgets/double_dot.dart';
+import 'package:ipotato_timer/ui/widgets/colon.dart';
 
 enum DurationType { hour, minutes, seconds }
 
@@ -21,11 +22,11 @@ class DurationSelector extends StatelessWidget {
   String get resolveDurationSymbol {
     switch (durationType) {
       case DurationType.hour:
-        return "HH";
+        return AppData.hourDenomination;
       case DurationType.minutes:
-        return "MM";
+        return AppData.minuteDenomination;
       case DurationType.seconds:
-        return "SS";
+        return AppData.secondDenomination;
     }
   }
 
@@ -78,7 +79,7 @@ class DurationSelector extends StatelessWidget {
                 onTap: () {
                   showDurationPickerDialog(context);
                 }),
-            if (showDoubleDot) const DoubleDot(),
+            if (showDoubleDot) const Colon(),
           ],
         ),
         Padding(

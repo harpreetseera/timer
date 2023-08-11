@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppData {
-  static const String assetIconPath = "assets/icons";
-  static const String addIconUrl = "$assetIconPath/add_icon.svg";
-  static const String soundWaveIconUrl = "$assetIconPath/sound_wave.svg";
-  static const String directionArrowUrl = "$assetIconPath/direction_arrow.svg";
-  static const String audioFilePath = "assets/audios/my_life.mp3";
-  static const String appBarTitle = "Potato Timer";
-  static const String appTitle = "iPotato Timer";
-
   static ThemeData themeData = ThemeData(
     useMaterial3: true,
     colorScheme: const ColorScheme(
@@ -68,4 +60,49 @@ class AppData {
       outline: Color(0xff8A9296),
     ),
   );
+
+/// Path extractions
+  static const String assetIconPath = "assets/icons";
+
+  static const String addIconUrl = "$assetIconPath/add_icon.svg";
+
+  static const String soundWaveIconUrl = "$assetIconPath/sound_wave.svg";
+
+  static const String directionArrowUrl = "$assetIconPath/direction_arrow.svg";
+
+  static const String audioFilePath = "assets/audios/my_life.mp3";
+
+  static const String appBarTitle = "Potato Timer";
+  
+  static const String appTitle = "iPotato Timer";
+  
+  /// String extractions
+  static const String addtasktext = "Add Task";
+
+  static const String markCompleteText = "MARK COMPLETE";
+
+  static const String labelText = "Title";
+
+  static const String titleHintText = "Superdesigner";
+
+  static const String descriptionText = "Description";
+
+  static const String descriptionHintText = "e.g. john@gmail.com";
+
+  static const String durationText = "Duration";
+
+  static const String discoveryOverlayText =
+      "No timers active.\nPress here to start a new one";
+
+  static const String requiredText = "Required";
+
+  static const String colonText = ":";
+
+  static const String hourDenomination = "HH";
+
+  static const String minuteDenomination = "MM";
+
+  static const String secondDenomination = "SS";
+
+  static const  String finishedText = "FINISHED";
 }

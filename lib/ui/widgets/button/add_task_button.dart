@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:ipotato_timer/app_data.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_duration.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
@@ -48,7 +49,7 @@ class AddTaskButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(SizeConfig.genericPadding),
           child: Text(
-            "Add Task",
+            AppData.addtasktext,
             style: Theme.of(context).textTheme.labelLarge,
           ),
         ),

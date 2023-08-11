@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/size_config.dart';
-
 import 'package:ipotato_timer/ui/widgets/button/add_timer_button_fab.dart';
 
 class TimerActionButton extends StatelessWidget {

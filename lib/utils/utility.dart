@@ -32,14 +32,11 @@ mixin Utility {
     const secondsInAnHour = 3600;
     const secondsInAMinute = 60;
     final hoursOfDuration = duration.inHours.prefixZeroForSingleDigit();
+    final hourModulas = durationInSeconds % secondsInAnHour;
     final minutesofDuration =
-        ((durationInSeconds % secondsInAnHour) / secondsInAMinute)
-            .floor()
-            .prefixZeroForSingleDigit();
+        (hourModulas / secondsInAMinute).floor().prefixZeroForSingleDigit();
     final secondsofDuration =
-        ((durationInSeconds % secondsInAnHour) % secondsInAMinute)
-            .floor()
-            .prefixZeroForSingleDigit();
+        ((hourModulas) % secondsInAMinute).floor().prefixZeroForSingleDigit();
     return '$hoursOfDuration:$minutesofDuration:$secondsofDuration';
   }
 }

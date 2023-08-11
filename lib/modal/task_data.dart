@@ -1,7 +1,4 @@
-// import 'package:freezed_annotation/freezed_annotation.dart';
-// part 'task_data.freezed.dart';
 import 'package:mobx/mobx.dart';
-
 part 'task_data.g.dart';
 
 // @freezed
