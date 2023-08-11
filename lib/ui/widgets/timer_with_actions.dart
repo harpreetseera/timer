@@ -40,10 +40,11 @@ class TimerWithActions extends StatelessWidget {
           ),
           genericHorizontalSpace,
           TimerActionButton(
-              iconData: Icons.stop_rounded,
-              action: () {
-                deleteTask(context, taskData);
-              }),
+            iconData: Icons.stop_rounded,
+            action: () {
+              deleteTask(context, taskData);
+            },
+          ),
         ],
       ),
     );
