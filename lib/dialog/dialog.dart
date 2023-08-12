@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// Custom dialog to show cupertino modal popup.
+/// Any child passed to it is disaplayed in a cupertino modal popup
 class CustomDialog {
   static void showDialog(BuildContext context, Widget child) {
     showCupertinoModalPopup<void>(
