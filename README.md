@@ -4,7 +4,7 @@ Training cum test assignment for Senior flutter Engineer at Go High Level.
 
 ## Demo Screen Shots - iOS
 
-<img src="/ipotato_timer/screenshots/ios/active_light.png" height="35%" width="35%"  alt="Active Light Demo"/> <img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/ios/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/ios/complete_light.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
+<img src="/screenshots/ios/active_light.png" height="35%" width="35%"  alt="Active Light Demo"/> <img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/ios/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/ios/complete_light.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
 
 ## Demo Screen Shots - Android
 
