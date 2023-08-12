@@ -4,14 +4,14 @@ Training cum test assignment for Senior flutter Engineer at Go High Level.
 
 ## Demo Screen Shots - iOS
 
-<img src="/screenshots/ios/active_light.png" height="35%" width="35%"  alt="Active Light Demo"/> <img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/ios/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/ios/complete_light.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
+<img src="/screenshots/ios/active_light.png" height="35%" width="35%"  alt="Active Light Demo"/> <img src="/screenshots/ios/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="/screenshots/ios/complete_light.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
 
 ## Demo Screen Shots - Android
 
-<img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/android/active_light.png" height="35%" width="35%"  alt="Active Light Demo"/> <img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/android/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/android/complete_light.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
+<img src="/screenshots/android/active_light.png" height="35%" width="35%"  alt="Active Light Demo"/> <img src="/screenshots/android/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="/screenshots/android/complete_light.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
 ## Demo Screen Shots - Mac OS
 
-<img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/mac/active_light.png" height="35%" width="35%"  alt="Active Light Demo"/> <img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/mac/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="https://raw.githubusercontent.com/harpreetseera/ipotato_timer/readme_updates/screenshots/mac/complete_light.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
+<img src="/screenshots/mac/active_light.png" height="35%" width="35%"  alt="Active Light Demo"/> <img src="/screenshots/mac/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="/screenshots/mac/complete_light.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
 
 ### Created & Maintained By
 
@@ -19,7 +19,7 @@ Training cum test assignment for Senior flutter Engineer at Go High Level.
 
 # License
 
-    Copyright 2020 Harpreet Singh
+    Copyright 2023 Harpreet Singh
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
