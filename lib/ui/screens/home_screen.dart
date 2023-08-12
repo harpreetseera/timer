@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/ui/widgets/appbar/potato_timer_app_bar.dart';
 import 'package:ipotato_timer/ui/widgets/button/add_timer_button_fab.dart';
@@ -37,10 +36,7 @@ class _HomeScreenState extends State<HomeScreen> with Utility {
   @override
   void initState() {
     taskList = context.read<TaskList>();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      setupDiscoveryOverlay(context);
-      setupOverLayDisposerReaction();
-    });
+    setupReactions();
     super.initState();
   }
 
@@ -62,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> with Utility {
     );
   }
 
-  void setupDiscoveryOverlay(BuildContext context) {
+  void setupDiscoveryOverlay() {
     final position = Utility.getPosition(context, globalKey);
     overlayEntry = OverlayEntry(
       builder: (context) {
@@ -75,15 +71,21 @@ class _HomeScreenState extends State<HomeScreen> with Utility {
   }
 
   void setupOverLayDisposerReaction() {
-    overlayShowcaseDisposer = reaction(
-      (_) => taskList.tasksEmptyAfterLoading,
-      (tasksEmptyAfterLoading) {
-        if (tasksEmptyAfterLoading) {
+    overlayShowcaseDisposer = autorun(
+      (_) {
+        if (taskList.tasksEmptyAfterLoading) {
           Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry);
         } else {
           removeOverlayIfPresent();
         }
       },
     );
+  }
+
+  void setupReactions() async {
+    /// To silently handle overlay position issue
+    await Future.delayed(const Duration(milliseconds: 500));
+    setupDiscoveryOverlay();
+    setupOverLayDisposerReaction();
   }
 }
