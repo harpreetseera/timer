@@ -34,6 +34,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// Provides the necessary provider so that there dependency
+///  can be read anytime down the widget Tree
 List<Provider> getProviders() {
   final emptyTaskList = TaskList([]);
   final providerList = [

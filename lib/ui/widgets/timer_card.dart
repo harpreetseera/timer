@@ -25,7 +25,10 @@ class TimerCard extends StatefulWidget {
 
 class _TimerCardState extends State<TimerCard>
     with AutomaticKeepAliveClientMixin, Utility {
+  ///Handles the audio play when the duration for a particular task is completed
   late ReactionDisposer playAudioDisposer;
+
+  /// Responsible for moving the completed tasks above the incomplete ones
   late ReactionDisposer completedTaskSortingDisposer;
   get genericHorizontalSpace => const SizedBox(width: 8);
   get genericVerticalSpace => const SizedBox(height: 8);
@@ -51,9 +54,8 @@ class _TimerCardState extends State<TimerCard>
       margin: const EdgeInsets.only(top: SizeConfig.genericSpace),
       elevation: SizeConfig.cardElevation,
 
-      ///Added this radius intentionally although the figma design
-      /// didn't had this.
-      /// Because the card looks uneven in MARK COMPLETE State
+      ///Added this radius intentionally although the figma design didn't
+      ///had this. Reason:the card looks uneven in MARK COMPLETE State
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(SizeConfig.genericBorderRadius)),
       child: Column(
@@ -89,6 +91,7 @@ class _TimerCardState extends State<TimerCard>
     );
   }
 
+  ///Keeps the timer card even though the list is scrolled
   @override
   bool get wantKeepAlive => true;
 
@@ -112,7 +115,7 @@ class _TimerCardState extends State<TimerCard>
   }
 }
 
-deleteTask(BuildContext context, TaskData taskData) async {
+processTaskDeletion(BuildContext context, TaskData taskData) async {
   context.read<TaskList>().deleteTask(taskData);
   context.read<IPotatoTimerDB>().deleteTaskFromDB(taskData);
 }

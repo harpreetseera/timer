@@ -1,3 +1,4 @@
+/// Size configurations for the elements being used in the application
 class SizeConfig {
   static const double addIconSize = 24;
 

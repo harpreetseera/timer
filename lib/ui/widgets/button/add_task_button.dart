@@ -8,6 +8,7 @@ import 'package:ipotato_timer/repository/database/database_interface.dart';
 import 'package:ipotato_timer/size_config.dart';
 import 'package:provider/provider.dart';
 
+///Adds the respective task to the current list
 class AddTaskButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TaskDuration taskDuration;

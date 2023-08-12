@@ -4,6 +4,7 @@ import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/size_config.dart';
 
 mixin Utility {
+  /// Moves the completed tasks at the top and incomplete task are not sorted
   List<TaskData> sortComlpetedTasks(List<TaskData> taskList) {
     if (taskList.isEmpty) {
       return taskList;
@@ -19,6 +20,7 @@ mixin Utility {
     }
   }
 
+  /// Provides the position of the respective widget on the canvas
   static (double, double) getPosition(
       BuildContext context, GlobalKey globalKey) {
     RenderBox? renderBox =
@@ -31,6 +33,7 @@ mixin Utility {
     return (topPosition, rightPosition);
   }
 
+  /// Helper to resolve the given duration in human readable timer format
   static String resolveTimer(Duration duration) {
     final durationInSeconds = duration.inSeconds;
     const secondsInAnHour = 3600;

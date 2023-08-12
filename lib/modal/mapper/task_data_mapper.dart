@@ -1,13 +1,14 @@
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/repository/database/task_database.dart';
 
+///Mapper to map TaskTableData to UI usable TaskData
 class TaskDataMapper {
-  final List<TaskTableData> taskTableData;
+  final List<TaskTableData> taskTableDataList;
 
-  TaskDataMapper(this.taskTableData);
+  TaskDataMapper(this.taskTableDataList);
 
   List<TaskData> mappedTaskData() {
-    return taskTableData.map(
+    return taskTableDataList.map(
       (data) {
         const millisecondsInASecond = 1000;
         final regiteredTimeInseconds =
@@ -28,6 +29,8 @@ class TaskDataMapper {
           registerTime: DateTime.fromMillisecondsSinceEpoch(data.registerTime),
         );
         if (taskData.isActive) {
+          // Since the timer is active so decrement 
+          //function is called so as to reduce the duration
           taskData.decrement();
         }
         return taskData;

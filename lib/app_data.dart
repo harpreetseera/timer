@@ -61,7 +61,7 @@ class AppData {
     ),
   );
 
-  /// Path extractions
+  // Path extractions for assets like icons, audio etc
   static const String assetIconPath = "assets/icons";
 
   static const String addIconUrl = "$assetIconPath/add_icon.svg";
@@ -72,11 +72,11 @@ class AppData {
 
   static const String audioFilePath = "assets/audios/my_life.mp3";
 
+  /// String extractions
   static const String appBarTitle = "Potato Timer";
 
   static const String appTitle = "iPotato Timer";
 
-  /// String extractions
   static const String addtasktext = "Add Task";
 
   static const String markCompleteText = "MARK COMPLETE";

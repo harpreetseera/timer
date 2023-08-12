@@ -26,7 +26,7 @@ class MarkCompleteButton extends StatelessWidget {
           ),
           onPressed: () {
             checkForAudioTermination(context);
-            deleteTask(context, taskData);
+            processTaskDeletion(context, taskData);
           },
           child: Padding(
             padding: const EdgeInsets.all(12.0),

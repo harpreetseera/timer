@@ -14,8 +14,13 @@ class AddTaskOverlay extends StatefulWidget {
 }
 
 class _AddTaskOverlayState extends State<AddTaskOverlay> {
+  /// Controllers fo rtitle and description capturing
   late TextEditingController titleController, descriptionController;
+
+  /// Key to validate the form state
   final formKey = GlobalKey<FormState>();
+
+  /// Stores the timer duration
   final taskDuration = TaskDuration(00, 00, 00);
 
   @override
