@@ -7,6 +7,7 @@ class PotatoTimerDB implements IPotatoTimerDB {
   final TaskDatabase taskDatabase;
 
   PotatoTimerDB({required this.taskDatabase});
+
   @override
   Future<void> addTaskInDB(TaskData task) async {
     await taskDatabase.addTaskInDB(task);

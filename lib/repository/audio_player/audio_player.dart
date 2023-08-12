@@ -2,6 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:ipotato_timer/app_data.dart';
 import 'package:ipotato_timer/repository/audio_player/audio_player_interface.dart';
 
+/// Manages the audio related operations
 class AudioPlayer implements IAudioPlayer {
   final AssetsAudioPlayer audioPlayer;
 
