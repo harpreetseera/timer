@@ -29,7 +29,10 @@ class DiscoveryOverlay extends StatelessWidget {
                 SvgPicture.asset(
                   AppData.directionArrowUrl,
                   colorFilter: ColorFilter.mode(
-                    Theme.of(context).colorScheme.tertiaryContainer,
+                    Theme.of(context)
+                        .colorScheme
+                        .tertiaryContainer
+                        .withOpacity(0.6),
                     BlendMode.srcIn,
                   ),
                 ),
