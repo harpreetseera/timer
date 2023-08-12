@@ -13,6 +13,9 @@ abstract class TaskBase with Store {
     required this.isActive,
     required this.registerTime,
   });
+
+  /// Unique ID which is combination of task title and
+  /// the creation time in milliseconds since epoch
   String id;
   String title;
   String description;

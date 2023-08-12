@@ -17,6 +17,7 @@ class CustomTextField extends StatelessWidget {
   });
 
   get validatorFunction => (val) {
+        //Since title an description are expected to be non empty
         if (val == null || val.isEmpty) {
           return AppData.requiredText;
         } else {

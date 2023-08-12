@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ipotato_timer/app_data.dart';
 
+///Discovery overlay displayed above the AddTimer button to guide user
 class DiscoveryOverlay extends StatelessWidget {
   final double top, right;
 

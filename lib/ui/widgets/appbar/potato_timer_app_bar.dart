@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ipotato_timer/app_data.dart';
 import 'package:ipotato_timer/size_config.dart';
 
+///Custom Appbar with required specifications like colors and styles
 class PotatoTimerAppBar extends StatelessWidget implements PreferredSizeWidget {
   const PotatoTimerAppBar({super.key});
 

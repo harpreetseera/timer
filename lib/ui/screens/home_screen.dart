@@ -17,9 +17,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with Utility {
+  /// Responsible for display and removal of discovery overlay.
   late ReactionDisposer overlayShowcaseDisposer;
+
+  /// LIst containing current tasks(Active/inactive/complete)
   late TaskList taskList;
+
   late OverlayEntry overlayEntry;
+
+  /// Required to fetch the FAB position
   GlobalKey globalKey = GlobalKey();
 
   get removeOverlayIfPresent => () {
@@ -27,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> with Utility {
           overlayEntry.remove();
         }
       };
+
   @override
   void initState() {
     taskList = context.read<TaskList>();

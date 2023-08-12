@@ -11,6 +11,7 @@ import 'package:ipotato_timer/ui/widgets/colon.dart';
 enum DurationType { hour, minutes, seconds }
 
 class DurationSelector extends StatelessWidget {
+  /// Notifies about the duration to be in hour, minutes or seconds
   final DurationType durationType;
   final TaskDuration taskDuration;
   const DurationSelector({
@@ -52,7 +53,7 @@ class DurationSelector extends StatelessWidget {
     }
   }
 
-  get showDoubleDot => !(durationType == DurationType.seconds);
+  get showColon => !(durationType == DurationType.seconds);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class DurationSelector extends StatelessWidget {
                 onTap: () {
                   showDurationPickerDialog(context);
                 }),
-            if (showDoubleDot) const Colon(),
+            if (showColon) const Colon(),
           ],
         ),
         Padding(

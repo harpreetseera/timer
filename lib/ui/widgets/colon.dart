@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/app_data.dart';
 
+/// Widget to display : as text
 class Colon extends StatelessWidget {
   const Colon({super.key});
 

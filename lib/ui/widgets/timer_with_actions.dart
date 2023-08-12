@@ -38,7 +38,7 @@ class TimerWithActions extends StatelessWidget {
           TimerActionButton(
             iconData: Icons.stop_rounded,
             action: () {
-              deleteTask(context, taskData);
+              processTaskDeletion(context, taskData);
             },
           ),
         ],

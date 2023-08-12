@@ -6,6 +6,8 @@ import 'package:ipotato_timer/ui/widgets/overlay/add_task_overlay.dart';
 
 typedef CustomCallback = void Function();
 
+/// Custom Floating Action button with large size and custom child.
+/// Used to open the overlay to add tasks
 class AddTimerButtonFAB extends StatelessWidget {
   final CustomCallback? customCallBack;
   const AddTimerButtonFAB({
