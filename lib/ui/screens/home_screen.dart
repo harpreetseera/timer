@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/ui/widgets/appbar/potato_timer_app_bar.dart';
 import 'package:ipotato_timer/ui/widgets/button/add_timer_button_fab.dart';
