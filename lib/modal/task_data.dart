@@ -1,17 +1,6 @@
 import 'package:mobx/mobx.dart';
 part 'task_data.g.dart';
 
-// @freezed
-// class TaskData with _$TaskData {
-//   const factory TaskData({
-//     required String title,
-//     required String description,
-//     required Duration duration,
-//   }) = _TaskData;
-//   factory TaskData.fromJson(Map<String, dynamic> json) =>
-//       _$TaskDataFromJson(json);
-// }
-
 class TaskData = TaskBase with _$TaskData;
 
 abstract class TaskBase with Store {

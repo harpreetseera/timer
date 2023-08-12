@@ -61,7 +61,7 @@ class AppData {
     ),
   );
 
-/// Path extractions
+  /// Path extractions
   static const String assetIconPath = "assets/icons";
 
   static const String addIconUrl = "$assetIconPath/add_icon.svg";
@@ -73,9 +73,9 @@ class AppData {
   static const String audioFilePath = "assets/audios/my_life.mp3";
 
   static const String appBarTitle = "Potato Timer";
-  
+
   static const String appTitle = "iPotato Timer";
-  
+
   /// String extractions
   static const String addtasktext = "Add Task";
 
@@ -104,5 +104,5 @@ class AppData {
 
   static const String secondDenomination = "SS";
 
-  static const  String finishedText = "FINISHED";
+  static const String finishedText = "FINISHED";
 }
