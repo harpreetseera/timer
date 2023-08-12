@@ -50,7 +50,7 @@ void main() {
       await database!.close();
     });
 
-    test("fetch all Task Entries", () async {
+    test("Fetch all Task Entries", () async {
       final output = await database!.allTaskEntries();
       expect(output, <TaskTableData>[]);
     });

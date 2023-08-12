@@ -26,20 +26,14 @@ void main() {
           ),
         ),
       );
-      // final BuildContext context =
-      //     widgetTester.element(find.byType(MaterialApp));
       final textFinder = find.byType(Text);
-      // expect(
-      //   widgetTester.firstWidget<Text>(textFinder).style,
-      //   Theme.of(context).textTheme.titleLarge,
-      // );
       expect(
         textFinder,
         findsAtLeastNWidgets(3),
       );
     });
   });
-  testWidgets("check the presence of mark comlplete button on zero duration",
+  testWidgets("Checks the presence of mark comlplete button on zero duration",
       (widgetTester) async {
     mockTaskData.duration = Duration.zero;
     await widgetTester.pumpWidget(
@@ -60,7 +54,7 @@ void main() {
   });
 
   testWidgets(
-      "check the presence of Finished Banner widget button on zero duration",
+      "Checks the presence of Finished Banner widget button on zero duration",
       (widgetTester) async {
     mockTaskData.duration = Duration.zero;
     await widgetTester.pumpWidget(

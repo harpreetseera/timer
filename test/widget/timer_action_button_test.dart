@@ -28,7 +28,7 @@ void main() {
       expect(widgetFinder, findsAtLeastNWidgets(2));
     });
 
-    testWidgets("pause icon built", (widgetTester) async {
+    testWidgets("Pause icon built", (widgetTester) async {
       await widgetTester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -41,7 +41,7 @@ void main() {
       final widgetFinder = find.byIcon(Icons.pause);
       expect(widgetFinder, findsOneWidget);
     });
-    testWidgets("play icon built", (widgetTester) async {
+    testWidgets("Play icon built", (widgetTester) async {
       final editedMockTest = mockTestData;
       editedMockTest.isActive = false;
       await widgetTester.pumpWidget(
@@ -56,7 +56,7 @@ void main() {
       final widgetFinder = find.byIcon(Icons.play_arrow);
       expect(widgetFinder, findsOneWidget);
     });
-    testWidgets("stop icon built", (widgetTester) async {
+    testWidgets("Stop icon built", (widgetTester) async {
       await widgetTester.pumpWidget(
         MaterialApp(
           home: Scaffold(
