@@ -1,5 +1,4 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/app_data.dart';
 
