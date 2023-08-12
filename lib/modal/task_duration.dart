@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 part 'task_duration.g.dart';
 
+/// Contains the information about the duration of the Timer
 class TaskDuration = TaskDurationBase with _$TaskDuration;
 
 abstract class TaskDurationBase with Store {
