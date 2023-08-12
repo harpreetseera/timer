@@ -17,7 +17,7 @@ class TaskTable extends Table {
 
 @DriftDatabase(tables: [TaskTable])
 class TaskDatabase extends _$TaskDatabase {
-  TaskDatabase() : super(_openConnection());
+  TaskDatabase(QueryExecutor e) : super(e);
 
   @override
   int get schemaVersion => 1;
@@ -52,7 +52,7 @@ class TaskDatabase extends _$TaskDatabase {
   }
 }
 
-QueryExecutor _openConnection() {
+QueryExecutor openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(path.join(dbFolder.path, 'db.sqlite'));

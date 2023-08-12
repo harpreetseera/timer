@@ -1,4 +1,5 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/app_data.dart';
 
@@ -38,7 +39,8 @@ List<Provider> getProviders() {
   final emptyTaskList = TaskList([]);
   final providerList = [
     Provider<IPotatoTimerDB>(
-        create: (_) => PotatoTimerDB(taskDatabase: TaskDatabase())),
+        create: (_) =>
+            PotatoTimerDB(taskDatabase: TaskDatabase(openConnection()))),
     Provider(create: (context) => emptyTaskList),
     Provider<IAudioPlayer>(
       create: (_) => AudioPlayer(audioPlayer: AssetsAudioPlayer.newPlayer()),
