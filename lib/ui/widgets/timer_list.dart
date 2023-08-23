@@ -18,7 +18,7 @@ class _TimerListState extends State<TimerList> {
   @override
   void initState() {
     taskList = context.read<TaskList>();
-    taskList.fetchListFromDB(context);
+    taskList.fetchListFromDB();
     super.initState();
   }
 

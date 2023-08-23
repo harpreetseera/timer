@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_list.dart';
 import 'package:ipotato_timer/repository/audio_player/audio_player_interface.dart';
@@ -117,5 +118,6 @@ class _TimerCardState extends State<TimerCard>
 
 processTaskDeletion(BuildContext context, TaskData taskData) async {
   context.read<TaskList>().deleteTask(taskData);
-  context.read<IPotatoTimerDB>().deleteTaskFromDB(taskData);
+  final db = GetIt.I.get<IPotatoTimerDB>();
+  db.deleteTaskFromDB(taskData);
 }

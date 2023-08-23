@@ -1,3 +1,5 @@
+import 'package:get_it/get_it.dart';
+import 'package:ipotato_timer/repository/database/database_interface.dart';
 import 'package:mobx/mobx.dart';
 part 'task_data.g.dart';
 
@@ -43,5 +45,24 @@ abstract class TaskBase with Store {
       duration = duration - const Duration(seconds: 1);
       await Future.delayed(const Duration(seconds: 1));
     }
+  }
+
+  @action
+  void playPauseTimer() {
+    isActive = !isActive;
+    if (isActive) {
+      decrement();
+    }
+    registerTime = DateTime.now();
+    final db = GetIt.I.get<IPotatoTimerDB>();
+    db.updateTaskInDB(
+      TaskData(
+          description: description,
+          duration: duration,
+          id: id,
+          isActive: isActive,
+          registerTime: registerTime,
+          title: title),
+    );
   }
 }

@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/repository/database/database_interface.dart';
 import 'package:ipotato_timer/utils/utility.dart';
 import 'package:mobx/mobx.dart';
-import 'package:provider/provider.dart';
 
 part 'task_list.g.dart';
 
@@ -27,8 +26,8 @@ abstract class TaskListBase with Store, Utility {
 
   /// Fetches taskList from database
   @action
-  Future<void> fetchListFromDB(BuildContext context) async {
-    final db = context.read<IPotatoTimerDB>();
+  Future<void> fetchListFromDB() async {
+    final db = GetIt.I.get<IPotatoTimerDB>();
     isLoading = true;
     final alltasks = await db.getallTaskEntries();
     isLoading = false;

@@ -53,9 +53,8 @@ mixin _$TaskList on TaskListBase, Store {
       AsyncAction('TaskListBase.fetchListFromDB', context: context);
 
   @override
-  Future<void> fetchListFromDB(BuildContext context) {
-    return _$fetchListFromDBAsyncAction
-        .run(() => super.fetchListFromDB(context));
+  Future<void> fetchListFromDB() {
+    return _$fetchListFromDBAsyncAction.run(() => super.fetchListFromDB());
   }
 
   late final _$TaskListBaseActionController =

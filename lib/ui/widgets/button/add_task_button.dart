@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ipotato_timer/app_data.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:ipotato_timer/modal/task_duration.dart';
@@ -42,7 +43,8 @@ class AddTaskButton extends StatelessWidget {
                   );
                   taskData.decrement();
                   context.read<TaskList>().addTask(taskData);
-                  context.read<IPotatoTimerDB>().addTaskInDB(taskData);
+                  final db = GetIt.I.get<IPotatoTimerDB>();
+                  db.addTaskInDB(taskData);
                   Navigator.of(context).pop();
                 }
               }

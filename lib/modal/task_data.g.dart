@@ -55,6 +55,20 @@ mixin _$TaskData on TaskBase, Store {
     return _$decrementAsyncAction.run(() => super.decrement());
   }
 
+  late final _$TaskBaseActionController =
+      ActionController(name: 'TaskBase', context: context);
+
+  @override
+  void playPauseTimer() {
+    final _$actionInfo =
+        _$TaskBaseActionController.startAction(name: 'TaskBase.playPauseTimer');
+    try {
+      return super.playPauseTimer();
+    } finally {
+      _$TaskBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
