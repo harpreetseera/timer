@@ -2,7 +2,7 @@
 
 Practice timer application to improvise flutter skills
 # 
-Allows the user to create and track timer with title and description and updates it evry second. Once timer is finished a nice song track is played.
+Allows the user to create and track timer with title and description and updates it every second. Once timer is finished a nice song track is played and the card is shown as completed. Continue/Stop/dismiss feature for timer are implemented
 #
 
 ### State Management - MobX
