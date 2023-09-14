@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'dart:io';
 import 'package:drift/native.dart';
-import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
+import 'package:timer/modal/task_data.dart';
 part 'task_database.g.dart';
 
 class TaskTable extends Table {

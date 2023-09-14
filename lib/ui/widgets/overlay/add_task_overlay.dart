@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ipotato_timer/app_data.dart';
-import 'package:ipotato_timer/modal/task_duration.dart';
-import 'package:ipotato_timer/size_config.dart';
-import 'package:ipotato_timer/ui/widgets/button/add_task_button.dart';
-import 'package:ipotato_timer/ui/widgets/custom_text_field.dart';
-import 'package:ipotato_timer/ui/widgets/duration_selector.dart';
+import 'package:timer/app_data.dart';
+import 'package:timer/modal/task_duration.dart';
+import 'package:timer/size_config.dart';
+import 'package:timer/ui/widgets/button/add_task_button.dart';
+import 'package:timer/ui/widgets/custom_text_field.dart';
+import 'package:timer/ui/widgets/duration_selector.dart';
 
 class AddTaskOverlay extends StatefulWidget {
   const AddTaskOverlay({super.key});

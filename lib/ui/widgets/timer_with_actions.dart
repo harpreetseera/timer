@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:ipotato_timer/modal/task_data.dart';
-import 'package:ipotato_timer/ui/widgets/button/timer_action_button.dart';
-import 'package:ipotato_timer/ui/widgets/timer_card.dart';
-import 'package:ipotato_timer/utils/utility.dart';
+import 'package:timer/modal/task_data.dart';
+import 'package:timer/ui/widgets/button/timer_action_button.dart';
+import 'package:timer/ui/widgets/timer_card.dart';
+import 'package:timer/utils/utility.dart';
 
 class TimerWithActions extends StatelessWidget {
   final TaskData taskData;

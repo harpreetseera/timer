@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ipotato_timer/app_data.dart';
-import 'package:ipotato_timer/ui/widgets/button/add_timer_button_fab.dart';
+import 'package:timer/app_data.dart';
+import 'package:timer/ui/widgets/button/add_timer_button_fab.dart';
 
 void main() {
   group("AddTimerFAB Test cases", () {

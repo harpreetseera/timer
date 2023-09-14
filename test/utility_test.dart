@@ -1,6 +1,6 @@
-import 'package:ipotato_timer/modal/task_data.dart';
 import 'package:test/test.dart';
-import 'package:ipotato_timer/utils/utility.dart';
+import 'package:timer/modal/task_data.dart';
+import 'package:timer/utils/utility.dart';
 
 ///Created a mock class to test functions which are not static in Utility mixin
 class MockUtility with Utility {}

@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:ipotato_timer/extension/int_extension.dart';
+import 'package:timer/extension/int_extension.dart';
 
 void main() {
   group('IntExtension', () {

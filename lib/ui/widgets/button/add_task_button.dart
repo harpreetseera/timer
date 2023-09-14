@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:ipotato_timer/app_data.dart';
-import 'package:ipotato_timer/modal/task_data.dart';
-import 'package:ipotato_timer/modal/task_duration.dart';
-import 'package:ipotato_timer/modal/task_list.dart';
-import 'package:ipotato_timer/repository/database/database_interface.dart';
-import 'package:ipotato_timer/size_config.dart';
+import 'package:timer/app_data.dart';
+import 'package:timer/modal/task_data.dart';
+import 'package:timer/modal/task_duration.dart';
+import 'package:timer/modal/task_list.dart';
+import 'package:timer/repository/database/database_interface.dart';
+import 'package:timer/size_config.dart';
 import 'package:provider/provider.dart';
 
 ///Adds the respective task to the current list

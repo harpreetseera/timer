@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ipotato_timer/size_config.dart';
-import 'package:ipotato_timer/ui/widgets/button/add_timer_button_fab.dart';
+import 'package:timer/size_config.dart';
+import 'package:timer/ui/widgets/button/add_timer_button_fab.dart';
 
 /// Custom button to Pause/Resume/Stop the timer state
 class TimerActionButton extends StatelessWidget {

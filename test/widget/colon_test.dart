@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ipotato_timer/ui/widgets/colon.dart';
+import 'package:timer/ui/widgets/colon.dart';
 
 void main() {
   group("Colon widget testing", () {

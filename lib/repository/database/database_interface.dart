@@ -1,4 +1,4 @@
-import 'package:ipotato_timer/modal/task_data.dart';
+import 'package:timer/modal/task_data.dart';
 
 ///Interface for Database related operations
 abstract class ITimerDB {

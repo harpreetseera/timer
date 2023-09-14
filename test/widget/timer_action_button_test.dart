@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ipotato_timer/modal/task_data.dart';
-import 'package:ipotato_timer/ui/widgets/timer_card.dart';
+import 'package:timer/modal/task_data.dart';
+import 'package:timer/ui/widgets/timer_card.dart';
 
 void main() {
   group("Timer action button test cases", () {

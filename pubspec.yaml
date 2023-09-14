@@ -1,5 +1,5 @@
-name: ipotato_timer
-description: A new Flutter project.
+name: timer
+description: Practice app for upskilling flutter skills.
 publish_to: 'none' 
 version: 1.0.0+1
 
@@ -23,6 +23,7 @@ dependencies:
   provider: ^6.0.5
   assets_audio_player: ^3.0.6
   get_it: ^7.6.0
+  rename: ^2.1.1
 
 dev_dependencies:
   flutter_test:

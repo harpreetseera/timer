@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ipotato_timer/extension/int_extension.dart';
-import 'package:ipotato_timer/modal/task_data.dart';
-import 'package:ipotato_timer/size_config.dart';
+import 'package:timer/extension/int_extension.dart';
+import 'package:timer/modal/task_data.dart';
+import 'package:timer/size_config.dart';
 
 mixin Utility {
   /// Moves the completed tasks at the top and incomplete task are not sorted
