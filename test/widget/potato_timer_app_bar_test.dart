@@ -11,7 +11,7 @@ void main() {
       await widgetTester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            appBar: PotatoTimerAppBar(),
+            appBar: TimerAppBar(),
           ),
         ),
       );
@@ -23,7 +23,7 @@ void main() {
       await widgetTester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            appBar: PotatoTimerAppBar(),
+            appBar: TimerAppBar(),
           ),
         ),
       );
@@ -34,7 +34,7 @@ void main() {
       await widgetTester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            appBar: PotatoTimerAppBar(),
+            appBar: TimerAppBar(),
           ),
         ),
       );

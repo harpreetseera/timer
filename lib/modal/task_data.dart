@@ -54,7 +54,7 @@ abstract class TaskBase with Store {
       decrement();
     }
     registerTime = DateTime.now();
-    final db = GetIt.I.get<IPotatoTimerDB>();
+    final db = GetIt.I.get<ITimerDB>();
     db.updateTaskInDB(
       TaskData(
           description: description,

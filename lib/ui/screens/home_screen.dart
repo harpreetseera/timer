@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> with Utility {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PotatoTimerAppBar(),
+      appBar: const TimerAppBar(),
       body: const TimerList(),
       floatingActionButton: AddTimerButtonFAB(
         key: globalKey,

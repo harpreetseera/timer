@@ -118,6 +118,6 @@ class _TimerCardState extends State<TimerCard>
 
 processTaskDeletion(BuildContext context, TaskData taskData) async {
   context.read<TaskList>().deleteTask(taskData);
-  final db = GetIt.I.get<IPotatoTimerDB>();
+  final db = GetIt.I.get<ITimerDB>();
   db.deleteTaskFromDB(taskData);
 }

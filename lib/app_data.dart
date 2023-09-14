@@ -73,9 +73,9 @@ class AppData {
   static const String audioFilePath = "assets/audios/my_life.mp3";
 
   /// String extractions
-  static const String appBarTitle = "Potato Timer";
+  static const String appBarTitle = "Timer";
 
-  static const String appTitle = "iPotato Timer";
+  static const String appTitle = "Timer";
 
   static const String addtasktext = "Add Task";
 
