@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "appstore 2.png",
+      "filename" : "appstore.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "appstore 1.png",
+      "filename" : "appstore.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
