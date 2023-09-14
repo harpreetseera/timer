@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:ipotato_timer/repository/database/database_interface.dart';
 import 'package:mobx/mobx.dart';
+import 'package:timer/repository/database/database_interface.dart';
 part 'task_data.g.dart';
 
 /// Class with information related to a single timer

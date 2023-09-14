@@ -1,8 +1,8 @@
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
-import 'package:ipotato_timer/modal/task_data.dart';
-import 'package:ipotato_timer/repository/database/task_database.dart';
-import 'package:ipotato_timer/repository/database/timer_db.dart';
+import 'package:timer/modal/task_data.dart';
+import 'package:timer/repository/database/task_database.dart';
+import 'package:timer/repository/database/timer_db.dart';
 import 'package:test/test.dart';
 
 void main() {

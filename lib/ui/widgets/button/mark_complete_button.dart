@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:ipotato_timer/app_data.dart';
-import 'package:ipotato_timer/modal/task_data.dart';
-import 'package:ipotato_timer/modal/task_list.dart';
-import 'package:ipotato_timer/repository/audio_player/audio_player_interface.dart';
-import 'package:ipotato_timer/size_config.dart';
-import 'package:ipotato_timer/ui/widgets/timer_card.dart';
+import 'package:timer/app_data.dart';
+import 'package:timer/modal/task_data.dart';
+import 'package:timer/modal/task_list.dart';
+import 'package:timer/repository/audio_player/audio_player_interface.dart';
+import 'package:timer/size_config.dart';
+import 'package:timer/ui/widgets/timer_card.dart';
 import 'package:provider/provider.dart';
 
 class MarkCompleteButton extends StatelessWidget {

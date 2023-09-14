@@ -1,12 +1,13 @@
-# timer
+# Timer
 
-Practice timer application to improvise flutter skills:
+Practice timer application to improvise flutter skills
+# 
 Allows the user to create and track timer with title and description and updates it evry second. Once timer is finished a nice song track is played.
-
-State Management - MobX
-Dependency Injection - GetIt
-Data persistence - Drift + SQLite3
-Unit Test cases and widget test Cases
+# 
+# State Management - MobX
+# Dependency Injection - GetIt
+# Data persistence - Drift + SQLite3
+# Unit Test cases and widget test Cases
 
 
 ## Demo Screen Shots - iOS
@@ -18,7 +19,7 @@ Unit Test cases and widget test Cases
 <img src="/screenshots/android/active_light.png" height="35%" width="35%"  alt="Active Light Demo"/> <img src="/screenshots/android/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="/screenshots/android/complete_light.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
 ## Demo Screen Shots - Mac OS
 
-<img src="/screenshots/mac/active_light.png" height="35%" width="35%"  alt="Active Light Demo"/> <img src="/screenshots/mac/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="/screenshots/mac/complete_light.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
+<img src="/screenshots/mac/active_dark.png"   height="35%" width="35%" alt="Active Dark Demo" /> <img src="/screenshots/mac/complete_dark.png"   height="35%" width="35%" alt=" Complete Light Demo" /> 
 
 ### Created & Maintained By
 

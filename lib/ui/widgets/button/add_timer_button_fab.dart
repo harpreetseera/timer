@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ipotato_timer/app_data.dart';
-import 'package:ipotato_timer/size_config.dart';
-import 'package:ipotato_timer/ui/widgets/overlay/add_task_overlay.dart';
+import 'package:timer/app_data.dart';
+import 'package:timer/size_config.dart';
+import 'package:timer/ui/widgets/overlay/add_task_overlay.dart';
 
 typedef CustomCallback = void Function();
 

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:ipotato_timer/modal/task_data.dart';
-import 'package:ipotato_timer/modal/task_list.dart';
-import 'package:ipotato_timer/repository/audio_player/audio_player_interface.dart';
-import 'package:ipotato_timer/repository/database/database_interface.dart';
-import 'package:ipotato_timer/size_config.dart';
-import 'package:ipotato_timer/ui/widgets/button/mark_complete_button.dart';
-import 'package:ipotato_timer/ui/widgets/finished_banner.dart';
-import 'package:ipotato_timer/ui/widgets/timer_with_actions.dart';
-import 'package:ipotato_timer/utils/utility.dart';
+import 'package:timer/modal/task_data.dart';
+import 'package:timer/modal/task_list.dart';
+import 'package:timer/repository/audio_player/audio_player_interface.dart';
+import 'package:timer/repository/database/database_interface.dart';
+import 'package:timer/size_config.dart';
+import 'package:timer/ui/widgets/button/mark_complete_button.dart';
+import 'package:timer/ui/widgets/finished_banner.dart';
+import 'package:timer/ui/widgets/timer_with_actions.dart';
+import 'package:timer/utils/utility.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 
