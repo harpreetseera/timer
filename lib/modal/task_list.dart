@@ -27,7 +27,7 @@ abstract class TaskListBase with Store, Utility {
   /// Fetches taskList from database
   @action
   Future<void> fetchListFromDB() async {
-    final db = GetIt.I.get<IPotatoTimerDB>();
+    final db = GetIt.I.get<ITimerDB>();
     isLoading = true;
     final alltasks = await db.getallTaskEntries();
     isLoading = false;

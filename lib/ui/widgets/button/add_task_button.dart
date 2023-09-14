@@ -43,7 +43,7 @@ class AddTaskButton extends StatelessWidget {
                   );
                   taskData.decrement();
                   context.read<TaskList>().addTask(taskData);
-                  final db = GetIt.I.get<IPotatoTimerDB>();
+                  final db = GetIt.I.get<ITimerDB>();
                   db.addTaskInDB(taskData);
                   Navigator.of(context).pop();
                 }

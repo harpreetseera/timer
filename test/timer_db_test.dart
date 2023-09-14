@@ -1,14 +1,14 @@
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/modal/task_data.dart';
-import 'package:ipotato_timer/repository/database/potato_timer_db.dart';
 import 'package:ipotato_timer/repository/database/task_database.dart';
+import 'package:ipotato_timer/repository/database/timer_db.dart';
 import 'package:test/test.dart';
 
 void main() {
   group("PotatoTimerDB tests", () {
     TaskDatabase? database;
-    PotatoTimerDB? db;
+    TimerDB? db;
     final mockTaskList = <TaskData>[
       TaskData(
         id: "1",
@@ -47,7 +47,7 @@ void main() {
     setUp(() {
       WidgetsFlutterBinding.ensureInitialized();
       database = TaskDatabase(NativeDatabase.memory());
-      db = PotatoTimerDB(taskDatabase: database!);
+      db = TimerDB(taskDatabase: database!);
     });
     tearDown(() async {
       await database!.close();
