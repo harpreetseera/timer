@@ -3,12 +3,13 @@
 Practice timer application to improvise flutter skills
 # 
 Allows the user to create and track timer with title and description and updates it evry second. Once timer is finished a nice song track is played.
-## 
- State Management - MobX
- Dependency Injection - GetIt
- Data persistence - Drift + SQLite3
- Unit Test cases and widget test Cases
-## 
+#
+
+### State Management - MobX
+### Dependency Injection - GetIt
+###  Data persistence - Drift + SQLite3
+###  Unit Test cases and widget test Cases
+
 
 
 ## Demo Screen Shots - iOS
