@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ipotato_timer/app_data.dart';
 import 'package:ipotato_timer/size_config.dart';
-import 'package:ipotato_timer/ui/widgets/appbar/potato_timer_app_bar.dart';
+import 'package:ipotato_timer/ui/widgets/appbar/timer_app_bar.dart';
 
 void main() {
   group("PotatoTimerAppBar widget testing", () {
